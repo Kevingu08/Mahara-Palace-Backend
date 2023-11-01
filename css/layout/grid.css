@@ -1,0 +1,103 @@
+/* clase adaptativa debido al position:fixed del navBar */
+.adaptative-menu-nav{
+    margin-top: 9rem;
+}
+
+.menu-container{
+    width: 100%;
+    padding: 1rem 8rem 1rem;
+}
+
+.menu{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 4rem;
+}
+
+.card-menu{
+    background: var(--clr-main);
+    border-radius: 2rem;
+    overflow: hidden;
+}
+
+/* animacion de las card, reducción de escala */
+.card-menu:hover{
+    scale: 0.9;
+    transition: .4s ease;
+}
+
+.card-image-container{
+    padding: 1rem;
+}
+
+.card-image{
+    display: flex;
+    object-fit: contain;
+    margin: auto;
+    width: 40%;
+}
+
+.card-content{
+    background: var(--clr-gray);
+    text-align: center;
+    padding: 1.5rem;
+}
+
+.featured-dishes {
+    padding: 2rem 8rem;
+    background: var(--clr-white);
+    margin-bottom: 2rem;
+}
+
+.card-slider{
+    background: var(--clr-main);
+    overflow: hidden;
+    border-radius: 2rem;
+    justify-content: center;
+}
+
+.slider-img {
+    width: 100%;
+}
+
+.slider-text{
+    color: var(--clr-white);
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+.btn-slider-container{
+    display: flex;
+    justify-content: center;
+}
+
+/* clase para cambiar el color de fondo de las card del slider*/
+.main-bg{
+    background: var(--clr-main);
+}
+
+
+.quantity-container{
+    background: var(--clr-gray);
+    overflow: hidden;
+    border-radius: 2rem;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+}
+
+.description-btn-container{
+    display: inline-grid;
+}
+
+@media (max-width:767.98px) {
+    .featured-dishes {
+        padding: 1rem 2rem;
+    }
+
+    .menu-container {
+        padding: 1rem 2rem;
+    }
+}

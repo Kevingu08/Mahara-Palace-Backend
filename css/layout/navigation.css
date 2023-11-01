@@ -1,0 +1,150 @@
+/* nav */
+.top-nav {
+  display: flex;
+  padding: 1rem 8rem;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  background: var(--clr-white);
+  border-bottom: solid;
+  border-bottom-color: var(--clr-gray);
+  position: fixed;
+  top: 0;
+  z-index: 20;
+}
+
+.logo-maharaja {
+  width: 7rem;
+  height: 7rem;
+}
+
+.nav-list {
+  display: flex;
+  gap: 2rem;
+  list-style-type: none;
+}
+
+.nav-list-link {
+  text-decoration: none;
+  color: var(--clr-black);
+  font-size: var(--fs-md);
+  font-weight: var(--fw-semi-bold);
+  background-image: linear-gradient(
+    transparent 0%,
+    transparent 90%,
+    var(--clr-main) 90%,
+    var(--clr-main) 100%
+  );
+  background-repeat: no-repeat;
+  background-size: 0% 100%;
+  background-position-x: right;
+
+  transition: background-size 500ms;
+}
+
+.nav-list-link:hover{
+    background-size: 100% 100%;
+    background-position-x: left;
+}
+
+.mobile-check {
+  display: none;
+}
+
+.mobile-btn {
+  display: none;
+}
+
+/* nav */
+
+@media (max-width: 767.98px) {
+
+  /* nav */
+  .top-nav {
+    padding: 1rem 2rem;
+  }
+
+  .mobile-check {
+    display: block;
+    opacity: 0;
+    z-index: 4;
+  }
+
+  .mobile-btn {
+    display: block;
+    position: fixed;
+    top: 4.5rem;
+    right: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
+    z-index: 3;
+  }
+
+  .line-menu {
+    display: block;
+    position: absolute;
+    height: 0.2rem;
+    background: var(--clr-main);
+    transition-duration: 0.25s;
+  }
+
+  /* lineas (menu de hamburguesa) */
+  .firts-line-menu {
+    width: 100%;
+    content: "";
+    top: -0.5rem;
+  }
+
+  .second-line-menu {
+    width: 60%;
+    right: 0;
+  }
+
+  .third-line-menu {
+    width: 100%;
+    content: "";
+    top: 0.5rem;
+  }
+  /* lineas (menu de hamburguesa) */
+
+  /* animación menu de hamburguesa */
+  .mobile-check:checked + .mobile-btn > .firts-line-menu {
+    transform: rotate(-50deg);
+    top: 1px;
+  }
+
+  .mobile-check:checked + .mobile-btn > .second-line-menu {
+    opacity: 0;
+  }
+
+  .mobile-check:checked + .mobile-btn > .third-line-menu {
+    top: 1px;
+    transform: rotate(50deg);
+  }
+
+  .mobile-check:checked ~ .nav-list {
+    left: 0;
+    transition-duration: 0.4s;
+  }
+  
+  .mobile-check ~ .nav-list {
+    left: -40rem;
+    transition-duration: 0.5s;
+  }
+   /* animación menu de hamburguesa */
+
+  .nav-list {
+    display: grid;
+    position: fixed;
+    bottom: 0;
+    margin: 0;
+    left: -50rem;
+    align-content: start;
+    background: var(--clr-white);
+    width: 100%;
+    z-index: 2;
+    padding: 5rem;
+    text-align: center;
+    height: 80vh;
+  }
+}

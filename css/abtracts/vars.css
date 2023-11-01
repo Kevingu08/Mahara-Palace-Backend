@@ -1,0 +1,29 @@
+:root{
+    /* fonts */
+    --ff-main: 'Hind Madurai', sans-serif;
+    --ff-secondary: 'Cabin', sans-serif; 
+    --ff-hindu: 'Arial', sans-serif;
+    /* font-size */
+    --fs-gg: 10rem;
+    --fs-xl: 5rem; 
+    --fs-lg: 2.5rem;
+    --fs-xmd: 1.5rem;
+    --fs-md: 1.125rem;
+    --fs-nm: 1rem;
+    --fs-sm: .875rem;
+    /* font-weight */
+    --fw-bold: 700;
+    --fw-semi-bold: 600;
+    --fw-md: 500;
+    --fw-rg: 400;
+    /* colors */
+    --clr-main: hsla(8.936, 58%, 32%, 1);
+    --clr-white:hsla(0, 0%, 100%, 1);
+    --clr-gray-bg: hsla(0, 0%, 93%, 1);
+    --clr-gray: hsla(180, 1%, 75%, 1);
+    --clr-gray-text: hsla(0, 0%, 54%, 1);
+    --clr-black: hsla(0, 0%, 10%, 1);
+    --clr-cream: hsla(35.094, 80%, 74%, 1);
+
+}
+

@@ -1,0 +1,36 @@
+.login-section{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container{
+    /* width: 5rem;
+    height: 2rem;
+    background: var(--clr-main); */
+    display: flex;
+    height: 70vh;
+    width: 60vw;
+}
+
+.login-container{
+    background: blue;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+
+.signin-container{
+    background: gray;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 50%;
+}
+

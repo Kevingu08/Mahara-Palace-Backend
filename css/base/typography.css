@@ -1,0 +1,54 @@
+.hero-title{
+    font-family: var(--ff-main);
+    font-size: var(--fs-lg);
+    font-weight: var(--fw-bold);
+}
+
+.hero-text{
+    font-size: var(--fs-md);
+    font-weight: var(--fw-rg);
+}
+
+.description-text{
+    font-size: var(--fs-xmd);
+    font-weight: var(--fw-rg);
+}
+
+.section-title{
+    font-family: var(--ff-main);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-lg);
+}
+
+.related-text-title{
+    font-family: var(--ff-main);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-lg);
+    margin-bottom: 1rem;
+}
+
+.related-text{
+    font-family: var(--ff-secondary);
+    font-weight: var(--fw-rg);
+    font-size: var(--fs-md);
+}
+
+.link-text{
+    color: var(--clr-black);
+    text-decoration: none;
+}
+
+.footer-legal{
+    text-align: center;
+    font-size: var(--fs-md);
+}
+
+.hero-text-hindu{
+    font-family: var(--ff-hindu);
+    margin-bottom: .5rem;
+}
+
+.hero-title-hindu{
+    font-family: var(--ff-hindu);
+    margin-bottom: .5rem;
+}

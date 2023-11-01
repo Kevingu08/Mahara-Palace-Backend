@@ -1,0 +1,6 @@
+.quantity-input{
+    width: 4rem;
+    background: var(--clr-gray);
+    border: none;
+    text-align: center;
+}
