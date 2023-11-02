@@ -38,6 +38,12 @@
     text-decoration: none;
 }
 
+.link-password{
+    display: none;
+    /* text-decoration: none; */
+    color: var(--clr-white);
+}
+
 .footer-legal{
     text-align: center;
     font-size: var(--fs-md);
