@@ -229,7 +229,7 @@
                     </div>
                 </a>
     
-            <a class="link-text" href="./menu.html">
+            <a class="link-text" href="./menu.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -240,7 +240,7 @@
                 </div>
             </a>
     
-                <a class="link-text" href="./menu.html">
+                <a class="link-text" href="./menu.php">
                     <div class="card-menu">
                         <div class="card-image-container">
                             <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -251,7 +251,7 @@
                     </div>
                 </a>
     
-                <a class="link-text" href="./menu.html">
+                <a class="link-text" href="./menu.php">
                     <div class="card-menu">
                         <div class="card-image-container">
                             <img class="card-image" src="./imgs/bebida.png" alt="beverage image">

@@ -34,7 +34,7 @@
 
         <div class="menu">
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -45,7 +45,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -56,7 +56,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -67,7 +67,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -78,7 +78,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -89,7 +89,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -100,7 +100,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -111,7 +111,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -122,7 +122,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -133,7 +133,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -144,7 +144,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -155,7 +155,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -166,7 +166,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -177,7 +177,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -188,7 +188,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
@@ -199,7 +199,7 @@
                 </div>
             </a>
 
-            <a class="link-card-menu" href="./description.html">
+            <a class="link-card-menu" href="./description.php">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image" src="./imgs/bebida.png" alt="beverage image">

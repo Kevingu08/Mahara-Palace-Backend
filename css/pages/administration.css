@@ -1,0 +1,60 @@
+.admin {
+    background: var(--clr-gray-bg);
+
+    margin-top: 9rem;
+}
+
+.main-container {
+    display: flex;
+}
+
+.admin-container {
+    display: flex;
+    justify-content: center;
+}
+
+.table-container {
+    padding: 3rem 3rem;
+    display: grid;
+    columns: 2;
+    gap: 2rem;
+    width: 95%;
+    background: var(--clr-main);
+    border-radius: 2rem;
+    margin-left: 4rem;
+    margin-top: 4rem;
+}
+
+.input-admin {
+    width: 4rem;
+    height: 3rem;
+}
+
+.sidebar {
+    width: 10%;
+}
+
+.sidebar-ul {
+    list-style-type: none;
+}
+
+.sidebar-li {
+    padding-top: 8rem;
+}
+
+.sidebar-list {
+    display: flex;
+    justify-content: center;
+    height: 54.1rem;
+    background-color: var(--clr-main);
+}
+
+.section-container {
+    margin-left: 2rem;
+    margin-top: 2rem;
+}
+
+/* .admin-forms{
+    margin: .5rem 0;
+    align-items: center;
+} */
