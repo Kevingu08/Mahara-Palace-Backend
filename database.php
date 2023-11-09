@@ -10,6 +10,6 @@
         'host' => 'localhost',
         'database' => 'bd_maharaja',
         'username' => 'root',
-        'password' => 'root'
+        'password' => ''
     ]);
 ?>

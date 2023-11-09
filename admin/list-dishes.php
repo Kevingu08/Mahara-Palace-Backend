@@ -79,7 +79,7 @@ $dishes = $database->select("tb_dishes", "*");
                                 foreach ($dishes as $dish) {
                                     echo "<td class='list-text'>".$dish["dish_name"] . "</td>";
                                     echo "<td class='list-text'>".$dish["featured_dish"]."</td>";
-                                    echo "<td class='list-text'>".$dish["id_category_dish"]."</td>";
+                                    echo "<td class='list-text'>".$dish["id_dish_category"]."</td>";
                                     echo "<td class='list-text'>".$dish["dish_price"]."</td>";
                                     echo "<td class='list-text'>".$dish["id_dish_quantity"]."</td>";
                                     echo "<td><a href='edit-dish.php?id_dishes=" . $dish["id_dishes"] . "'>Edit</a>  <a href='delete-dish.php?id=" . $dish["id_dishes"] . "''>Delete</a></td>";

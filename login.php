@@ -1,6 +1,50 @@
 <?php 
+    require_once './database.php';
+
+    $loginMessage = "";
+    $signinMessage = "";
+    
+    // Reference: https://medoo.in/api/select
+    // Reference: https://medoo.in/api/insert
+    
+
     if($_POST){
-       var_dump($_POST);
+        if(isset($_POST["login"])){
+            $user = $database->select("tb_users","*",[
+                "usr"=>$_POST["username"]
+            ]);
+
+            if(count($user) > 0){
+                if(password_verify($_POST["password"], $user[0]["password"])){
+                    session_start();
+                    $_SESSION["isLoggedIn"] = true;
+                    header("location: index.php");
+                }
+                else{
+                    $loginMessage = "wrong username or password";
+                }
+            }
+            else{
+                $loginMessage = "wrong username or password";
+            }
+        }
+        if(isset($_POST["signin"])){
+            $validateUsername = $database->select("tb_users","*",[
+                "usr"=>$_POST["username"]
+            ]);
+
+            if(count($validateUsername) > 0){
+                $signinMessage = "¡This username is already registered!";
+            }
+            else{
+                $pass = password_hash($_POST["password"], PASSWORD_DEFAULT, ['cost' => 10]);
+                $database->insert("tb_users",[
+                    "usr"=>$_POST["username"],
+                    "email"=>$_POST["email"],
+                    "password"=>$pass
+                    ]);
+            } 
+        }       
     }
 
 ?>
@@ -27,6 +71,8 @@
                     <input class="form-input" id="login-username" type="text" placeholder="Username" name="username">
                     <input class="form-input" id="login-password" type="password" placeholder="Password" name="password">
                     <input class="btn-login-main" id="login-btn" type="submit" value="Log In">
+                    <p><?php echo $loginMessage?></p>
+                    <input type="hidden" name="login" value="1">
                 </form>
                 <a id="link-password" class="link-password" href="#">Forgot password?</a>
             </div>
@@ -38,6 +84,8 @@
                     <input class="form-input" id="signin-email" type="text" placeholder="Email" name="email">
                     <input class="form-input" id="signin-password" type="password" placeholder="Password" name="password">
                     <input class="btn-login-main" id="signin-btn" type="submit" value="Sign in">
+                    <p><?php echo $signinMessage?></p>
+                    <input type="hidden" name="signin" value="1">
                  </form>
             </div>
         </div>
