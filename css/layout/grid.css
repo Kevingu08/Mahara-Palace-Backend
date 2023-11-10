@@ -44,7 +44,8 @@
 .card-content{
     background: var(--clr-gray);
     text-align: center;
-    padding: 1.5rem;
+    padding: 1rem;
+
 }
 
 .featured-dishes {

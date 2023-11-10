@@ -1,3 +1,11 @@
+<?php 
+    include_once './database.php';
+
+    // Reference: https://medoo.in/api/select
+    $items = $database->select("tb_dishes","*");
+    
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -30,16 +38,15 @@
         <!-- contenido del hero -->
         <div class="hero-main">
             <section class="hero-text-container">
-                <h2 class="hero-title">Title</h2>
-                <p class="hero-text">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dignissimos, quasi. Eos,
-                    nostrum? Ea aliquid soluta error quam sunt? Fugit velit sunt suscipit optio molestiae officiis
-                    veritatis laborum perspiciatis, quae in.</p>
+                <h2 class="hero-title"><?php echo $items[3]["dish_name"] ?></h2>
+                
+                <p class="hero-text"><?php echo $items[3]["dish_description"]?></p>
                 <div class="cta-container">
-                    <a class="btn-main" href="./description.html">Order Now</a>
+                    <a class="btn-main" href='./description.php?id=<?php echo $items[3]["id_dishes"]?>'>Order Now</a>
                 </div>
             </section>
             <div class="hero-image-container">
-                <img class="hero-image" src="./imgs/platillo-1.png" alt="hero-image">
+                <img class="hero-image" src="./imgs/<?php echo $items[3]["dish_img"]?>" alt="hero-image">
             </div>
         </div>
         <!-- contenido del hero -->
@@ -56,146 +63,27 @@
             <div class="swiper">
                 <div class="swiper-wrapper">
                     <!-- Slides -->
-                    <div class="swiper-slide">
-                        <div class="card-slider">
-                            <img class="slider-img" src="./imgs/aloo-gosht.jpg.webp" alt="aloo-gosht">
-                            <div class="card-content main-bg">
-                                <div class="slider-text">
-                                    <h3>Title</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                </div>
-                                <div class="btn-slider-container">
-                                    <a class="btn-secondary link-text" href="./description.php">See more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card-slider">
-                            <img class="slider-img" src="./imgs/butter-chicken.jpg.webp" alt="butter-chicken">
-                            <div class="card-content main-bg">
-                                <div class="slider-text">
-                                    <h3>Title</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                </div>
-                                <div class="btn-slider-container">
-                                    <a class="btn-secondary link-text" href="./description.php">See more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card-slider">
-                            <img class="slider-img" src="./imgs/chapati.jpg.webp" alt="chapati">
-                            <div class="card-content main-bg">
-                                <div class="slider-text">
-                                    <h3>Title</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                </div>
-                                <div class="btn-slider-container">
-                                    <a class="btn-secondary link-text" href="./description.html">See more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card-slider">
-                            <img class="slider-img" src="./imgs/kulfi.jpg.webp" alt="kulfi">
-                            <div class="card-content main-bg">
-                                <div class="slider-text">
-                                    <h3>Title</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                </div>
-                                <div class="btn-slider-container">
-                                    <a class="btn-secondary link-text" href="./description.html">See more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card-slider">
-                            <img class="slider-img" src="./imgs/malai-kofta.jpg.webp" alt="malai-kofta">
-                            <div class="card-content main-bg">
-                                <div class="slider-text">
-                                    <h3>Title</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                </div>
-                                <div class="btn-slider-container">
-                                    <a class="btn-secondary link-text" href="./description.html">See more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card-slider">
-                            <img class="slider-img" src="./imgs/raita.jpg.webp" alt="raita">
-                            <div class="card-content main-bg">
-                                <div class="slider-text">
-                                    <h3>Title</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                </div>
-                                <div class="btn-slider-container">
-                                    <a class="btn-secondary link-text" href="./description.html">See more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card-slider">
-                            <img class="slider-img" src="./imgs/malai-kofta.jpg.webp" alt="malai-kofta">
-                            <div class="card-content main-bg">
-                                <div class="slider-text">
-                                    <h3>Title</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                </div>
-                                <div class="btn-slider-container">
-                                    <a class="btn-secondary link-text" href="./description.html">See more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card-slider">
-                            <img class="slider-img" src="./imgs/raita.jpg.webp" alt="raita">
-                            <div class="card-content main-bg">
-                                <div class="slider-text">
-                                    <h3>Title</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                </div>
-                                <div class="btn-slider-container">
-                                    <a class="btn-secondary link-text" href="./description.html">See more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card-slider">
-                            <img class="slider-img" src="./imgs/kulfi.jpg.webp" alt="kulfi">
-                            <div class="card-content main-bg">
-                                <div class="slider-text">
-                                    <h3>Title</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                </div>
-                                <div class="btn-slider-container">
-                                    <a class="btn-secondary link-text" href="./description.html">See more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="card-slider">
-                            <img class="slider-img" src="./imgs/malai-kofta.jpg.webp" alt="malai-kofta">
-                            <div class="card-content main-bg">
-                                <div class="slider-text">
-                                    <h3>Title</h3>
-                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
-                                </div>
-                                <div class="btn-slider-container">
-                                    <a class="btn-secondary link-text" href="./description.html">See more</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <?php 
+                        foreach($items as $item){
+                            if($item["featured_dish"] == 1){
+                                echo "<div class='swiper-slide'>";
+                                    echo "<div class='card-slider'>";
+                                        echo "<img class='slider-img' src='./imgs/".$item["dish_img"]."' alt='aloo-gosht'>";
+                                        echo "<div class='card-content main-bg'>";
+                                            echo "<div class='slider-text'>";
+                                                echo "<h3>".$item["dish_name"]."</h3>";
+                                                echo "<p>".substr($item["dish_description"],0,40)."...</p>";
+                                            echo "</div>";
+                                            echo "<div class='btn-slider-container'>";
+                                                echo "<a class='btn-secondary link-text' href='./description.php?id=".$item["id_dishes"]."'>See more</a>";
+                                            echo "</div>";
+                                        echo "</div>";
+                                    echo "</div>";
+                                echo "</div>";
+                            }
+                        }
+                       
+                    ?>
                      <!-- Slides -->
                 </div>
                 

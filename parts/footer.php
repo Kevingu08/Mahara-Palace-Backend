@@ -30,10 +30,11 @@
 
         </div>
         <div class="social-media">
-            <img src="./imgs/facebook-svgrepo-com.svg" alt="facebook">
-            <img src="./imgs/instagram-svgrepo-com.svg" alt="instagram">
-            <img src="./imgs/youtube-svgrepo-com.svg" alt="youtube">
-            <img src="./imgs/twitter-154-svgrepo-com.svg" alt="twitter">
+
+            <a href="#"><img src="./imgs/facebook-svgrepo-com.svg" alt="facebook"></a>
+            <a href="#"><img src="./imgs/instagram-svgrepo-com.svg" alt="instagram"></a>
+            <a href="#"><img src="./imgs/youtube-svgrepo-com.svg" alt="youtube"></a>
+            <a href="#"><img src="./imgs/twitter-154-svgrepo-com.svg" alt="twitter"></a>
         </div>
         <p class="footer-legal">&copy; 2023. All rights reserved.</p>
     </footer>
