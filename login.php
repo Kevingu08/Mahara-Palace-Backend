@@ -59,7 +59,7 @@
 </head>
 <body>
     <?php 
-        // include "./parts/nav.php";
+        include "./parts/nav.php";
     ?>
     <section class="login-section">
         <div class="container">
@@ -67,6 +67,7 @@
                 
                 <img src="./imgs/user-alt-1-svgrepo-com.svg" alt="">
                 <h2>Login</h2>
+
                 <form class="form-container" method="post" action="login.php">
                     <input class="form-input" id="login-username" type="text" placeholder="Username" name="username">
                     <input class="form-input" id="login-password" type="password" placeholder="Password" name="password">
@@ -74,6 +75,7 @@
                     <p><?php echo $loginMessage?></p>
                     <input type="hidden" name="login" value="1">
                 </form>
+
                 <a id="link-password" class="link-password" href="#">Forgot password?</a>
             </div>
             <div class="signin-container" id="signin-container">

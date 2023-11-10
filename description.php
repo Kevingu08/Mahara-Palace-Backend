@@ -1,3 +1,28 @@
+<?php 
+    require_once './database.php';
+
+    if($_GET){
+        
+        $items = $database->select("tb_dishes",[
+            "[>]tb_category_dishes"=>["id_dish_category" => "id_category"],
+            "[>]tb_quantity"=>["id_dish_quantity" => "id_quantity"]
+        ],[
+            "tb_dishes.id_dishes",
+            "tb_dishes.dish_name",
+            "tb_dishes.dish_img",
+            "tb_dishes.featured_dish",
+            "tb_dishes.dish_description",
+            "tb_dishes.dish_price",
+            "tb_category_dishes.category_name",
+            "tb_category_dishes.category_description",
+            "tb_quantity.people_quantity",
+            "tb_quantity.quantity_description"
+        ],[
+            "id_dishes"=>$_GET["id"]
+        ]);
+    }
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,29 +43,27 @@
         <!-- Barra de navegacion -->
 
         <!-- contenido del hero -->
-        <div class="hero-main-description">
-            <section class="hero-text-container">
-                <h2 class="hero-title hero-title-hindu">शीर्षक</h2>
-                <p class="hero-text hero-text-hindu">
-                    लोरेम इप्सम डोलर सिट अमेट कंसेक्टेचर, एडिपिसिंग एलीट। डिग्निसिमोस, अर्ध.
-                    ईओस,
-                    नॉस्ट्रम? क्या एक तरल घुलनशीलता त्रुटि है? फुगिट वेलिट संट ससिपिट ऑप्टियो मोलेस्टे ऑफिसिस
-                    वेरिटैटिस लेबोरम पर्सपिसियाटिस, क्यूई इन।
-                </p>
-                <p class="hero-text hero-text-hindu">₹99.99</p>    
-                <div class="description-btn-container">
-                    <div class="quantity-container">
-                        <button class="quantity-btn">-</button>
-                        <input class="quantity-input" type="text">
-                        <button class="quantity-btn">+</button>
-                    </div>
-                    <a class="btn-main" href="#">Order Now</a>
-                </div>
-            </section>
-            <div class="hero-image-container">
-                <img class="hero-image" src="./imgs/Shemins-Butter-Chicken-LR.jpg" alt="hero-image">
-            </div>
-        </div>
+        <?php 
+            echo "<div class='hero-main-description'>";
+                echo "<section class='hero-text-container'>";
+                    echo "<h2 class='hero-title hero-title-hindu'>".$items[0]["dish_name"]."</h2>";
+                    echo "<p class='hero-text hero-text-hindu'>".$items[0]["dish_description"]."</p>";
+                    echo "<p class='hero-text hero-text-hindu'>$".$items[0]["dish_price"]."</p>";    
+                    echo "<div class='description-btn-container'>";
+                        echo "<div class='quantity-container'>";
+                            echo "<button class='quantity-btn'>-</button>";
+                            echo "<input class='quantity-input' type='text'>";
+                            echo "<button class='quantity-btn'>+</button>";
+                        echo "</div>";
+                        echo "<a class='btn-main' href='#'>Order Now</a>";
+                    echo "</div>";
+                echo "</section>";
+                echo "<div class='hero-image-container'>";
+                    echo "<img class='hero-image' src='./imgs/".$items[0]["dish_img"]."' alt='hero-image'>";
+                echo "</div>";
+            echo "</div>";
+        ?>
+        
         
     </header>
     <!-- header -->

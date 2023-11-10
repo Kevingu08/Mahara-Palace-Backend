@@ -1,3 +1,10 @@
+<?php 
+    require_once './database.php';
+    // Reference: https://medoo.in/api/select
+    $items = $database->select("tb_dishes","*");
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -33,183 +40,21 @@
         </div>
 
         <div class="menu">
+            <?php 
+                foreach($items as $item){
+                    echo "<a class='link-card-menu' href='description.php?id=".$item["id_dishes"]."'>";
+                        echo "<div class='card-menu'>";
+                            echo "<div class='card-image-container'>";
+                                echo "<img class='card-image' src='./imgs/".$item["dish_img"]."' alt='beverage image'>";
+                            echo "</div>";
 
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
-            <a class="link-card-menu" href="./description.php">
-                <div class="card-menu">
-                    <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
-                    </div>
-                    <div class="card-content">
-                        <h4>Main courses</h4>
-                    </div>
-                </div>
-            </a>
-
+                            echo "<div class='card-content'>";
+                                echo "<h4>".$item["dish_name"]."</h4>";
+                            echo "</div>";
+                        echo "</div>";
+                    echo "</a>";
+                }
+            ?>
         </div>
     </main>
     <!-- main -->

@@ -1,5 +1,5 @@
 h2{
-    color: var(--clr-white);
+    /* color: var(--clr-white); */
     font-size: var(--fs-md);
 }
 
@@ -9,6 +9,7 @@ h2{
     align-items: center;
     height: 100vh;
     padding: 2rem;
+    margin-top: 5rem;
 }
 
 .container{
@@ -47,7 +48,7 @@ h2{
 
 .form-input{
     display: none;
-    width: 10rem;
+    width: 12rem;
     height: 3rem;
     margin: auto;
     background: transparent;
