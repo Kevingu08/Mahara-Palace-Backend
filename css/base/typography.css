@@ -78,5 +78,7 @@
 }
 
 .list-text {
-    color: var(--clr-white);
+    padding: 15px;
+    font-size: var(--ff-sm);
+    color: var(--clr-black);
 }

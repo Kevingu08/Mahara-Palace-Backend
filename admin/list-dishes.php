@@ -1,16 +1,16 @@
 <?php
 require_once '../database.php';
 $dishes = $database->select("tb_dishes", "*");
-
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/main.css">
-    <title>Administration</title>
+    <title>list-dishes</title>
+    <link rel="stylesheet" href="../css/main.css">\
 </head>
 
 <body>
@@ -60,40 +60,40 @@ $dishes = $database->select("tb_dishes", "*");
             </sidebar>
             <!--SideBar-->
 
-            <section class="section-container">
-                <h2 class="section-title">Dishes list</h2>
+            <div class="tabular-wrapper">
+                <h3 class="section-title">Dishes list</h3>
                 <div class="underscore"></div>
-                <div class="admin-container">
-                    <div class="table-container">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <td class= "list-title-text">Dish Name</td>
-                                    <td class= "list-title-text">Dish description</td>
-                                    <td class= "list-title-text">Price</td>
-                                    <td class= "list-title-text">Actions</td>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <?php
-                                foreach ($dishes as $dish) {
-                                    echo "<td class='list-text'>".$dish["dish_name"] . "</td>";
-                                    echo "<td class='list-text'>".$dish["featured_dish"]."</td>";
-                                    echo "<td class='list-text'>".$dish["id_dish_category"]."</td>";
-                                    echo "<td class='list-text'>".$dish["dish_price"]."</td>";
-                                    echo "<td class='list-text'>".$dish["id_dish_quantity"]."</td>";
-                                    echo "<td><a href='edit-dish.php?id_dishes=" . $dish["id_dishes"] . "'>Edit</a>  <a href='delete-dish.php?id=" . $dish["id_dishes"] . "''>Delete</a></td>";
-                                    echo "</tr>";
-                                }
-                                ?>
-                            </tbody>
-                        </table>
-                    </div>
+                <div class="table-container">
+                    <table class="table">
+                        <thead class="table-head">
+                            <tr class="table-tr">
+                                <th class="table-th">Dish name</th>
+                                <th class="table-th">Featured</th>
+                                <th class="table-th">Category</th>
+                                <th class="table-th">Price </th>
+                                <th class="table-th">Quantity</th>
+                                <th class="table-th">Actions</th>
+                            </tr>
+                        <tbody class="table-body">
+                            <?php
+                            foreach ($dishes as $dish) {
+                                echo "<tr class='table-tr'>";
+                                echo "<td class='table-td'>".$dish["dish_name"]."</td>";
+                                echo "<td class='table-td'>".$dish["featured_dish"]."</td>";
+                                echo "<td class='table-td'>".$dish["id_dish_category"]."</td>";
+                                echo "<td class='table-td'>".$dish["dish_price"]."</td>";
+                                echo "<td class='table-td'>".$dish["id_dish_quantity"]."</td>";
+                                echo "<td><a href='edit-dish.php?id_dishes=" . $dish["id_dishes"] . "'>Edit</a>  <a href='delete-dish.php?id=" . $dish["id_dishes"] . "''>Delete</a></td>";
+                            }
+                            ?>
+
+                            </tr>
+                        </tbody>
+                        </thead>
+                    </table>
                 </div>
-            </section>
-        </div>
+            </div>
     </main>
-    <!-- main -->
 </body>
 
 </html>
