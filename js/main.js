@@ -3,7 +3,14 @@ let currentPosition = 0;
 let mainPosition = window.scrollY;
 let navHeight = topNav.offsetHeight;
 
+//test
+let screenWidth = screen.width;
+let shoppingTb = document.getElementById("shopping-tb");
+
 function init(){
+  if(screenWidth < 768){
+    shoppingTb.style.display = "block";
+  }
   adaptiveMenu();
   initSlider();
   scrollNavbar();
@@ -11,42 +18,49 @@ function init(){
 
 // funcion para inicializar el slider de swiper
 function initSlider(){
-  var swiper = new Swiper('.swiper', {
-    loop: true,
-    autoplay: true,
+  let swiperElement = document.querySelector(".swiper");
+  console.log(swiperElement);
 
-    navigation: {
-        nextEl: '.swiper-button-next',
-        prevEl: '.swiper-button-prev',
-    },
-    
-    pagination: {
-      el: '.swiper-pagination',
-      clickable: true,
-    },
-    
-    slidesPerView: 1,
-    spaceBetween: 40,
+  if(swiperElement != undefined){
+    var swiper = new Swiper('.swiper', {
+      loop: true,
+      autoplay: true,
   
-    breakpoints: {
-      620: {
-        slidesPerView: 1,
-        spaceBetween: 20,
+      navigation: {
+          nextEl: '.swiper-button-next',
+          prevEl: '.swiper-button-prev',
       },
-      680: {
-        slidesPerView: 2,
-        spaceBetween: 40,
+      
+      pagination: {
+        el: '.swiper-pagination',
+        clickable: true,
       },
-      920: {
-        slidesPerView: 3,
-        spaceBetween: 40,
-      },
-      1240: {
-        slidesPerView: 3,
-        spaceBetween: 50,
-      },
-    } 
-    });
+      
+      slidesPerView: 1,
+      spaceBetween: 40,
+    
+      breakpoints: {
+        620: {
+          slidesPerView: 1,
+          spaceBetween: 20,
+        },
+        680: {
+          slidesPerView: 2,
+          spaceBetween: 40,
+        },
+        920: {
+          slidesPerView: 3,
+          spaceBetween: 40,
+        },
+        1240: {
+          slidesPerView: 3,
+          spaceBetween: 50,
+        },
+      } 
+      });
+  }
+
+  
 }
 
 // funcion para adaptar el menu en las diferentes pantallas de movil

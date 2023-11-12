@@ -77,7 +77,7 @@
             <!-- Cards -->
             <div class="related-products-container">
                 <div class="related-img-container">
-                    <img class="related-products-img" src="./imgs/Shemins-Butter-Chicken-LR.jpg" alt="coca-cola">
+                    <img class="related-products-img" src="" alt="coca-cola">
                 </div>
                 <div class="related-content-container">
                     <div class="related-text-container">
@@ -92,7 +92,7 @@
     
             <div class="related-products-container">
                 <div class="related-img-container">
-                    <img class="related-products-img" src="./imgs/Shemins-Butter-Chicken-LR.jpg" alt="coca-cola">
+                    <img class="related-products-img" src="" alt="coca-cola">
                 </div>
                 <div class="related-content-container">
                     <div class="related-text-container">
@@ -107,7 +107,7 @@
             
             <div class="related-products-container">
                 <div class="related-img-container">
-                    <img class="related-products-img" src="./imgs/Shemins-Butter-Chicken-LR.jpg" alt="coca-cola">
+                    <img class="related-products-img" src="" alt="coca-cola">
                 </div>
                 <div class="related-content-container">
                     <div class="related-text-container">

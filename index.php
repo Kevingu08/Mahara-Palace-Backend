@@ -31,7 +31,7 @@
     <header class="hero-container">
         <!-- Barra de navegacion -->
         <?php 
-            include "./parts/nav.php";
+            include './parts/nav.php';
         ?>
         <!-- Barra de navegacion -->
 
