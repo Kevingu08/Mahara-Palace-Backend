@@ -70,7 +70,7 @@
 .sidebar-text {
     color: var(--clr-white);
     text-decoration: none;
-    font-size: var(--fs-lg);
+    font-size: var(--fs-md);
 }
 
 .list-title-text {
@@ -81,4 +81,12 @@
     padding: 15px;
     font-size: var(--ff-sm);
     color: var(--clr-black);
+}
+
+.admin-title {
+    font-family: var(--ff-main);
+    font-weight: var(--fw-bold);
+    font-size: var(--fs-lg);
+    margin-top: 2rem;
+    margin-left: 2rem;
 }

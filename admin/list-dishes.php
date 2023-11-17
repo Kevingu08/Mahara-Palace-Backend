@@ -52,7 +52,7 @@ $dishes = $database->select("tb_dishes", "*");
                 <nav class="sidebar-list">
                     <ul class="sidebar-ul">
                         <li class="sidebar-li"><a href="./add-dishes.php" class="sidebar-text">Add Dish</a></li>
-                        <li class="sidebar-li"><a href="#" class="sidebar-text">Dish list</a></li>
+                        <li class="sidebar-li"><a href="list-dishes.php" class="sidebar-text">Dish list</a></li>
                         <li class="sidebar-li"><a href="#" class="sidebar-text">User list</a></li>
                         <li class="sidebar-li"><a href="#" class="sidebar-text">Add User</a></li>
                     </ul>
@@ -61,8 +61,8 @@ $dishes = $database->select("tb_dishes", "*");
             <!--SideBar-->
 
             <div class="tabular-wrapper">
-                <h3 class="section-title">Dishes list</h3>
-                <div class="underscore"></div>
+                <h3 class="admin-title">Dishes list</h3>
+                <div class="underscore-admin"></div>
                 <div class="table-container">
                     <table class="table">
                         <thead class="table-head">
@@ -83,10 +83,9 @@ $dishes = $database->select("tb_dishes", "*");
                                 echo "<td class='table-td'>".$dish["id_dish_category"]."</td>";
                                 echo "<td class='table-td'>".$dish["dish_price"]."</td>";
                                 echo "<td class='table-td'>".$dish["id_dish_quantity"]."</td>";
-                                echo "<td><a href='edit-dish.php?id_dishes=" . $dish["id_dishes"] . "'>Edit</a>  <a href='delete-dish.php?id=" . $dish["id_dishes"] . "''>Delete</a></td>";
+                                echo "<td><a href='edit-dish.php?id_dishes=" . $dish["id_dishes"] . "'><img src='../imgs/edit.svg' alt='edit icon'></a>  <a href='delete-dish.php?id=".$dish["id_dishes"]."''><img src='../imgs/delete-icon.svg' alt='edit icon'></a></td>";
                             }
                             ?>
-
                             </tr>
                         </tbody>
                         </thead>

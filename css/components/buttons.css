@@ -51,6 +51,15 @@
     margin-bottom: 1rem;
 }
 
+.underscore-admin{
+    width: 20%;
+    height: .3rem;
+    background: var(--clr-main);
+    border-radius: 2rem;
+    margin-bottom: 1rem;
+    margin-left: 2rem;
+}
+
 .quantity-btn{
     background: var(--clr-main);
     padding: .5rem;
