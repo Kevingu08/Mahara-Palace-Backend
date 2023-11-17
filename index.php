@@ -109,7 +109,7 @@
                 <a class="link-text" href="./menu.php">
                     <div class="card-menu">
                         <div class="card-image-container">
-                            <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
+                            <img class="card-image-filter" src="./imgs/appetizers.svg" alt="Appetizers icon">
                         </div>
                         <div class="card-content">
                                 <h4>Appetizers</h4>                        
@@ -120,7 +120,7 @@
             <a class="link-text" href="./menu.php">
                 <div class="card-menu">
                     <div class="card-image-container">
-                        <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
+                        <img class="card-image-filter" src="./imgs/maindishes.svg" alt="Main courses icon">
                     </div>
                     <div class="card-content">
                             <h4 class="categories-text">Main courses</h4>
@@ -131,7 +131,7 @@
                 <a class="link-text" href="./menu.php">
                     <div class="card-menu">
                         <div class="card-image-container">
-                            <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
+                            <img class="card-image-filter" src="./imgs/desserts.svg" alt="dessert icon">
                         </div>
                         <div class="card-content">
                                 <h4 class="categories-text">Desserts</h4>
@@ -142,7 +142,7 @@
                 <a class="link-text" href="./menu.php">
                     <div class="card-menu">
                         <div class="card-image-container">
-                            <img class="card-image" src="./imgs/bebida.png" alt="beverage image">
+                            <img class="card-image-filter" src="./imgs/beverages.svg" alt="beverage icon">
                         </div>
                         <div class="card-content">
                                 <h4 class="categories-text">Beverages</h4>                        

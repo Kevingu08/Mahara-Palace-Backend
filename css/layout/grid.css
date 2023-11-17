@@ -41,6 +41,16 @@
     aspect-ratio: 1/1;
 }
 
+.card-image-filter{
+    display: flex;
+    margin: auto;
+    width: 100%;
+    max-height: 300px;
+    aspect-ratio: 1/1;
+}
+
+
+
 .card-content{
     background: var(--clr-gray);
     text-align: center;
