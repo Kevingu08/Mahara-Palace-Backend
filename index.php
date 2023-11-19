@@ -106,7 +106,7 @@
     
             
             <div class="menu">
-                <a class="link-text" href="./menu.php">
+                <a class="link-text" href="./menu.php?id=<?php echo 2?>">
                     <div class="card-menu">
                         <div class="card-image-container">
                             <img class="card-image-filter" src="./imgs/appetizers.svg" alt="Appetizers icon">
@@ -117,7 +117,7 @@
                     </div>
                 </a>
     
-            <a class="link-text" href="./menu.php">
+            <a class="link-text" href="./menu.php?id=<?php echo 1?>">
                 <div class="card-menu">
                     <div class="card-image-container">
                         <img class="card-image-filter" src="./imgs/maindishes.svg" alt="Main courses icon">
@@ -128,7 +128,7 @@
                 </div>
             </a>
     
-                <a class="link-text" href="./menu.php">
+                <a class="link-text" href="./menu.php?id=<?php echo 4?>">
                     <div class="card-menu">
                         <div class="card-image-container">
                             <img class="card-image-filter" src="./imgs/desserts.svg" alt="dessert icon">
@@ -139,13 +139,13 @@
                     </div>
                 </a>
     
-                <a class="link-text" href="./menu.php">
+                <a class="link-text" href="./menu.php?id=<?php echo 3?>">
                     <div class="card-menu">
                         <div class="card-image-container">
                             <img class="card-image-filter" src="./imgs/beverages.svg" alt="beverage icon">
                         </div>
                         <div class="card-content">
-                                <h4 class="categories-text">Beverages</h4>                        
+                                <h4 class="categories-text">Drinks</h4>                        
                         </div>
                     </div>
                 </a>

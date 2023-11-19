@@ -19,7 +19,6 @@ function init(){
 // funcion para inicializar el slider de swiper
 function initSlider(){
   let swiperElement = document.querySelector(".swiper");
-  console.log(swiperElement);
 
   if(swiperElement != undefined){
     var swiper = new Swiper('.swiper', {
@@ -65,7 +64,6 @@ function initSlider(){
 
 // funcion para adaptar el menu en las diferentes pantallas de movil
 function adaptiveMenu(){
-  
   let navList = document.getElementById("navigation-list");
   let mobileCheck = document.getElementById("mobile-check");
 

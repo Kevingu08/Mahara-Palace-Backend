@@ -18,6 +18,7 @@
                 if(password_verify($_POST["password"], $user[0]["password"])){
                     session_start();
                     $_SESSION["isLoggedIn"] = true;
+                    $_SESSION["cartList"] = array();
                     header("location: index.php");
                 }
                 else{

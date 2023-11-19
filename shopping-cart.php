@@ -1,3 +1,26 @@
+<?php 
+    require_once './database.php';
+    $cart_list = [];
+    session_start();
+    // session_destroy();
+    if(isset($_SESSION["isLoggedIn"])){
+        $cart_list = $_SESSION["cartList"];
+        $id_list = [];
+        $quantity_list = [];
+
+        if(count($cart_list)>0){
+            foreach($cart_list as $key => $dish){
+                $id_list[] = $dish["id"];
+                $quantity_list[] = $dish["quantity"];
+            }
+    
+            $items = $database->select("tb_dishes","*",[
+                "id_dishes" => $id_list
+            ]);
+        }
+    }   
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -14,7 +37,48 @@
         <section class="shopping-cart">
             <h2 class="section-title">Your Cart</h2>
             <div class="shopping-container">
-                <table class="shopping-tb" id="shopping-tb">
+                <?php
+                if(count($cart_list) >0){
+
+                    echo "<table class='shopping-tb' id='shopping-tb'>";
+                    echo "<thead>";
+                    echo "<tr>";
+                    echo "<th class='shopping-th th-image'>Image</th>";
+                    echo "<th class='shopping-th'>Name</th>";
+                    echo "<th class='shopping-th'>Price</th>";
+                    echo "<th class='shopping-th'>Quantity</th>";
+                    echo "<th class='shopping-th'>Action</th>";
+                    echo "<th class='shopping-th'>Total Price</th>";
+                    echo "</tr>";
+                    echo "</thead>";
+                    echo "<tbody>";
+                    foreach($items as $index =>$item){
+                        echo "<tr>";
+                        echo "<td class='shopping-td'><img class='element-image' src='./imgs/".$item["dish_img"]."' alt=''></td>";
+                        echo "<td class='shopping-td'>".$item["dish_name"]."</td>";
+                        echo "<td class='shopping-td'>$".$item["dish_price"]."</td>";
+                        echo "<td class='shopping-td'>";
+                        echo "<input type='text' class='input-shopping-quantity' value='".$quantity_list[$index]."'>";
+                        echo "<div>";
+                        echo "<button class='quantity-btn-shopping' >-</button>";
+                        echo "<button class='quantity-btn-shopping' >+</button>";
+                        echo "</div>";
+                        echo "</td>";
+                        echo "<td class='shopping-td'><button>Delete</button></td>";
+                        echo "<td class='shopping-td'>$19</td>";
+                        echo "</tr>";
+                    }
+                    echo "</tbody>";
+                    echo "</table>";
+                }
+                else{
+                    echo "<h3>There are no elements</h3>";
+                }
+                ?>
+
+
+
+                <!-- <table class="shopping-tb" id="shopping-tb">
                     <thead>
                         <tr>
                             <th class="shopping-th th-image">Image</th>
@@ -26,64 +90,29 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr>
-                            <td class="shopping-td"><img class="element-image" src="./imgs/chai-tea-latte.jpg" alt=""></td>
-                            <td class="shopping-td">Tea</td>
-                            <td class="shopping-td">$19</td>
-                            <td class="shopping-td">
-                                <input type="text" class="input-shopping-quantity">
-                                <div>
-                                    <button class="quantity-btn-shopping" >-</button>
-                                    <button class="quantity-btn-shopping" >+</button>
-                                </div>
-                            </td>
-                            <td class="shopping-td"><button>Delete</button></td>
-                            <td class="shopping-td">$19</td>
-                        </tr>
-                        <tr>
-                            <td class="shopping-td"><img class="element-image" src="./imgs/chai-tea-latte.jpg" alt=""></td>
-                            <td class="shopping-td">Tea</td>
-                            <td class="shopping-td">$19</td>
-                            <td class="shopping-td">
-                                <input type="text" class="input-shopping-quantity">
-                                <div>
-                                    <button class="quantity-btn-shopping" >-</button>
-                                    <button class="quantity-btn-shopping" >+</button>
-                                </div>
-                            </td>
-                            <td class="shopping-td"><button>Delete</button></td>
-                            <td class="shopping-td">$19</td>
-                        </tr>
-                        <tr>
-                            <td class="shopping-td"><img class="element-image" src="./imgs/chai-tea-latte.jpg" alt=""></td>
-                            <td class="shopping-td">Tea</td>
-                            <td class="shopping-td">$19</td>
-                            <td class="shopping-td">
-                                <input type="text" class="input-shopping-quantity">
-                                <div>
-                                    <button class="quantity-btn-shopping" >-</button>
-                                    <button class="quantity-btn-shopping" >+</button>
-                                </div>
-                            </td>
-                            <td class="shopping-td"><button>Delete</button></td>
-                            <td class="shopping-td">$19</td>
-                        </tr>
-                        <tr>
-                            <td class="shopping-td"><img class="element-image" src="./imgs/chai-tea-latte.jpg" alt=""></td>
-                            <td class="shopping-td">Tea</td>
-                            <td class="shopping-td">$19</td>
-                            <td class="shopping-td">
-                                <input type="text" class="input-shopping-quantity">
-                                <div>
-                                    <button class="quantity-btn-shopping" >-</button>
-                                    <button class="quantity-btn-shopping" >+</button>
-                                </div>
-                            </td>
-                            <td class="shopping-td"><button>Delete</button></td>
-                            <td class="shopping-td">$19</td>
-                        </tr>
+                        <?php 
+                            if(count($cart_list) >0){
+                                foreach($items as $index =>$item){
+                                    echo "<tr>";
+                                    echo "<td class='shopping-td'><img class='element-image' src='./imgs/".$item["dish_img"]."' alt=''></td>";
+                                    echo "<td class='shopping-td'>".$item["dish_name"]."</td>";
+                                    echo "<td class='shopping-td'>$".$item["dish_price"]."</td>";
+                                    echo "<td class='shopping-td'>";
+                                        echo "<input type='text' class='input-shopping-quantity' value='".$quantity_list[$index]."'>";
+                                        echo "<div>";
+                                            echo "<button class='quantity-btn-shopping' >-</button>";
+                                            echo "<button class='quantity-btn-shopping' >+</button>";
+                                        echo "</div>";
+                                    echo "</td>";
+                                    echo "<td class='shopping-td'><button>Delete</button></td>";
+                                    echo "<td class='shopping-td'>$19</td>";
+                                    echo "</tr>";
+                                }
+                            }
+                        ?>
                     </tbody>
-                </table>
+                </table> -->
+
             </div>
         </section>
     </main>
