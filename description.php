@@ -45,15 +45,13 @@
                 $cartList[$id_dish] = $addedDish;
                 $_SESSION["cartList"] = $cartList;
 
-                echo json_encode($decoded);
             }
         }
         else{
-            //header("location: login.php");
-            echo json_encode("else");
-            // echo "<script> console.log('test'); </script>";
+            $isLogged = "no";
+            echo json_encode($isLogged);
         }
-                
+        exit;
     }
 ?>
 
@@ -185,10 +183,12 @@
                 },
                 body: JSON.stringify(info)
             })
-            .then(response => {
-                console.log(response);
-                if(!response.ok){
-                    throw new Error("Error en la solicitud: ${response.status}");
+            .then(response => response.text())
+            .then(data => {
+                let response = data;
+                if(response.length > 0){
+                    console.log("true");
+                    window.location.href = "login.php";
                 }
             })
             .catch(err => console.log("error: " + err));
