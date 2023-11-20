@@ -54,21 +54,27 @@
                     echo "<tbody>";
                     foreach($items as $index =>$item){
                         echo "<tr>";
-                        echo "<td class='shopping-td'><img class='element-image' src='./imgs/".$item["dish_img"]."' alt=''></td>";
-                        echo "<td class='shopping-td'>".$item["dish_name"]."</td>";
-                        echo "<td class='shopping-td'>$".$item["dish_price"]."</td>";
-                        echo "<td class='shopping-td'>";
-                        echo "<input type='text' class='input-shopping-quantity' value='".$quantity_list[$index]."'>";
-                        echo "<div>";
-                        echo "<button class='quantity-btn-shopping' >-</button>";
-                        echo "<button class='quantity-btn-shopping' >+</button>";
-                        echo "</div>";
-                        echo "</td>";
-                        echo "<td class='shopping-td'><button>Delete</button></td>";
-                        echo "<td class='shopping-td'>$19</td>";
+                            echo "<td class='shopping-td'><img class='element-image' src='./imgs/".$item["dish_img"]."' alt=''></td>";
+                            echo "<td class='shopping-td'>".$item["dish_name"]."</td>";
+                            echo "<td class='shopping-td'>$".$item["dish_price"]."</td>";
+                            echo "<td class='shopping-td'>";
+                            echo "<input type='text' class='input-shopping-quantity' value='".$quantity_list[$index]."'>";
+                            echo "<div>";
+                                echo "<button class='quantity-btn-shopping' >-</button>";
+                                echo "<button class='quantity-btn-shopping' >+</button>";
+                            echo "</div>";
+                            echo "</td>";
+                            echo "<td class='shopping-td'><button>Delete</button></td>";
+                            echo "<td class='shopping-td'>$19</td>";
                         echo "</tr>";
                     }
                     echo "</tbody>";
+                    echo "<tfoot>";
+                        echo "<tr>";
+                            echo "<td class='shopping-td td-text-total'>Total</td>";
+                            echo "<td class='shopping-td td-total'>$120</td>";
+                        echo "</tr>";
+                    echo "</tfoot>";
                     echo "</table>";
                 }
                 else{

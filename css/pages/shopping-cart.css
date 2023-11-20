@@ -60,6 +60,17 @@
     color: var(--clr-main);
 }
 
+.td-text-total{
+  column-span: 5;
+  font-size: var(--fs-xmd);
+  border-top: solid var(--clr-gray-bg);
+}
+
+.td-total{
+  font-size: var(--fs-xmd);
+  border-top: solid var(--clr-gray-bg);
+}
+
 
 table {
   width: 100%;
