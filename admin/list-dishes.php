@@ -1,6 +1,8 @@
 <?php
 require_once '../database.php';
+
 $dishes = $database->select("tb_dishes", "*");
+
 ?>
 
 <!DOCTYPE html>
@@ -10,7 +12,7 @@ $dishes = $database->select("tb_dishes", "*");
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>list-dishes</title>
-    <link rel="stylesheet" href="../css/main.css">\
+    <link rel="stylesheet" href="../css/main.css">
 </head>
 
 <body>
@@ -48,16 +50,9 @@ $dishes = $database->select("tb_dishes", "*");
     <main class="admin">
         <div class="main-container">
             <!--SideBar-->
-            <sidebar class="sidebar">
-                <nav class="sidebar-list">
-                    <ul class="sidebar-ul">
-                        <li class="sidebar-li"><a href="./add-dishes.php" class="sidebar-text">Add Dish</a></li>
-                        <li class="sidebar-li"><a href="list-dishes.php" class="sidebar-text">Dish list</a></li>
-                        <li class="sidebar-li"><a href="#" class="sidebar-text">User list</a></li>
-                        <li class="sidebar-li"><a href="#" class="sidebar-text">Add User</a></li>
-                    </ul>
-                </nav>
-            </sidebar>
+            <?php
+            include "../parts/sidebar.php";
+            ?>
             <!--SideBar-->
 
             <div class="tabular-wrapper">
@@ -66,7 +61,7 @@ $dishes = $database->select("tb_dishes", "*");
                 <div class="table-container">
                     <table class="table">
                         <thead class="table-head">
-                            <tr class="table-tr">
+                            <tr class>
                                 <th class="table-th">Dish name</th>
                                 <th class="table-th">Featured</th>
                                 <th class="table-th">Category</th>
@@ -78,12 +73,12 @@ $dishes = $database->select("tb_dishes", "*");
                             <?php
                             foreach ($dishes as $dish) {
                                 echo "<tr class='table-tr'>";
-                                echo "<td class='table-td'>".$dish["dish_name"]."</td>";
-                                echo "<td class='table-td'>".$dish["featured_dish"]."</td>";
-                                echo "<td class='table-td'>".$dish["id_dish_category"]."</td>";
-                                echo "<td class='table-td'>".$dish["dish_price"]."</td>";
-                                echo "<td class='table-td'>".$dish["id_dish_quantity"]."</td>";
-                                echo "<td><a href='edit-dish.php?id_dishes=" . $dish["id_dishes"] . "'><img src='../imgs/edit.svg' alt='edit icon'></a>  <a href='delete-dish.php?id=".$dish["id_dishes"]."''><img src='../imgs/delete-icon.svg' alt='edit icon'></a></td>";
+                                echo "<td class='table-td'>" . $dish["dish_name"] . "</td>";
+                                echo "<td class='table-td'>" . $dish["featured_dish"] . "</td>";
+                                echo "<td class='table-td'>" . $dish["id_dish_category"] . "</td>";
+                                echo "<td class='table-td'>" . $dish["dish_price"] . "</td>";
+                                echo "<td class='table-td'>" . $dish["id_dish_quantity"] . "</td>";
+                                echo "<td><a href='edit-dishes.php?id_dishes=" . $dish["id_dishes"] . "'><img src='../imgs/edit.svg' alt='edit icon'></a>  <a href='delete-dish.php?id=" . $dish["id_dishes"] . "''><img src='../imgs/delete-icon.svg' alt='edit icon'></a></td>";
                             }
                             ?>
                             </tr>

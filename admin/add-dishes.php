@@ -3,7 +3,51 @@ require_once '../database.php';
 
 $categories = $database->select("tb_category_dishes", "*");
 $quantities = $database->select("tb_quantity", "*");
-$featured = $database->select("tb_dishes", "featured_dish", );
+
+
+
+if ($_POST) {
+
+    if (isset($_FILES['img'])) {
+        $errors = [];
+
+        $file_name = $_FILES['img']['name'];
+        $file_size = $_FILES['img']['size'];
+        $file_tmp = $_FILES['img']['tmp_name'];
+        $file_type = $_FILES['img']['type'];
+        $file_ext_arr = explode(".", $_FILES['img']['name']);
+
+        $file_ext = end($file_ext_arr);
+        $img_ext = ["jpg", "jpeg", "png", "webp"];
+        if (!in_array($file_ext, $img_ext)) {
+            $errors[] = "File type is not supported";
+            $message = "File type is not supported";
+        }
+
+        if (empty($errors)) {
+            $filename = strtolower($_POST['name']);
+            $filename = str_replace('.', '', $filename);
+            $filename = str_replace('.', '', $filename);
+            $filename = str_replace(' ', '-', $filename);
+            $img = $filename . "." . $file_ext;
+            echo "$img";
+            move_uploaded_file($file_tmp, "../imgs/" . $img);
+
+
+            $database->insert("tb_dishes", [
+                "id_dish_quantity" => $_POST["quantity"],
+                "id_dish_category" => $_POST["category"],
+                "dish_name" => $_POST["name"],
+                "dish_img" => $img,
+                "featured_dish" => $_POST["value"],
+                "dish_description" => $_POST["description"],
+                "dish_price" => $_POST["price"]
+            ]);
+            header("Location: list-dishes.php");
+        }
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -51,141 +95,88 @@ $featured = $database->select("tb_dishes", "featured_dish", );
     <main class="admin">
         <div class="main-container">
             <!--SideBar-->
-            <sidebar class="sidebar">
-                <nav class="sidebar-list">
-                    <ul class="sidebar-ul">
-                        <li class="sidebar-li"><a href="#" class="sidebar-text">Add Dish</a></li>
-                        <li class="sidebar-li"><a href="#" class="sidebar-text">Dish list</a></li>
-                        <li class="sidebar-li"><a href="#" class="sidebar-text">User list</a></li>
-                        <li class="sidebar-li"><a href="#" class="sidebar-text">Add User</a></li>
-                    </ul>
-                </nav>
-            </sidebar>
+            <?php
+            include "../parts/sidebar.php";
+            ?>
             <!--SideBar-->
 
 
             <div class="tabular-wrapper-container">
-                <form action="list-dishes.php" method="post" enctype="multipart/form-data">
-                <h3 class="admin-title">Add Dishes</h3>
-                <div class="underscore-admin"></div>
-                <div class="admin-add-container">
+                <form action="add-dishes.php" method="post" enctype="multipart/form-data">
+                    <h3 class="admin-title">Add Dishes</h3>
+                    <div class="underscore-admin"></div>
+                    <div class="admin-add-container">
 
-                    <div class="add-container">
+                        <div class="add-container">
 
-                        <div class="input-container">
-                            <label class="input-text">Dish name:</label>
-                            <input class="input-box" type="text" placeholder="Enter dish name">
-                        </div>
-
-                        <div class="input-container">
-                            <label class="input-text">Dish description:</label>
-                            <input class="input-box" type="text" placeholder="Enter dish description">
-                        </div>
-
-                        <div class="input-colunm">
                             <div class="input-container">
-                                <label class="input-text">Dish category:</label>
-                                <select class="input-box" name="dish_category" id="dish_category">
-                                    <?php
-                                    foreach ($categories as $category) {
-                                        echo "<option value='" . $category["category_name"] . "'>" . $category["category_name"] . "</option>";
-                                    }
-                                    ?>
-                                </select>
+                                <label class="input-text">Dish name:</label>
+                                <input class="input-box" name="name" type="text" placeholder="Enter dish name">
                             </div>
 
                             <div class="input-container">
-                                <label class="input-text">Dish price:</label>
-                                <input class="input-box" type="text" placeholder="Enter dish price">
+                                <label class="input-text">Dish description:</label>
+                                <input class="input-box" name="description" type="text"
+                                    placeholder="Enter dish description">
+                            </div>
+
+                            <div class="input-colunm">
+                                <div class="input-container">
+                                    <label class="input-text">Dish category:</label>
+                                    <select class="input-box" name="category" id="dish_category">
+                                        <?php
+                                        foreach ($categories as $category) {
+                                            echo "<option value='" . $category["id_category"] . "'>" . $category["category_name"] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+
+                                <div class="input-container">
+                                    <label class="input-text">Dish price:</label>
+                                    <input class="input-box" name="price" type="text" placeholder="Enter dish price">
+                                </div>
+                            </div>
+
+                            <div class="input-colunm">
+                                <div class="input-container">
+                                    <label class="input-text">People quantity:</label>
+                                    <select class="input-box" name="quantity" id="dish_category">
+                                        <?php
+                                        foreach ($quantities as $quantity) {
+                                            echo "<option value='" . $quantity["id_quantity"] . "'>" . $quantity["people_quantity"] . "</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                                <div class="input-container">
+                                    <label class="input-text">Featured:</label>
+                                    <label class="switch">
+                                        <input id="featured" name="featured" type="checkbox" onclick="checkValue()">
+                                        <span class="slider round"></span>
+                                    </label>
+                                    <input type="hidden" id="value" value="0" name="value">
+                                </div>
+
+                                <div class="input-container">
+                                    <label class="input-text">Dish Image:</label>
+                                    <input type="file" id="file" name="img" onchange="readURL(this)" hidden>
+                                    <label for="file">
+                                        <img id="preview" class="upload-box" src="../imgs/upload.svg" alt="preview">
+                                    </label>
+
+                                </div>
+                            </div>
+                            <div class="div-button">
+                                <input class="input-button" type="Submit" value="Add new dish">
                             </div>
                         </div>
-
-                        <div class="input-colunm">
-                            <div class="input-container">
-                                <label class="input-text">People quantity:</label>
-                                <select class="input-box" name="people_quantity" id="dish_category">
-                                    <?php
-                                    foreach ($quantities as $quantity) {
-                                        echo "<option value='" . $quantity["people_quantity"] . "'>" . $quantity["people_quantity"] . "</option>";
-                                    }
-                                    ?>
-                                </select>
-                            </div>
-                            <div class="input-container">
-                                
-                                <label class="input-text">Featured:</label>
-                                <label class="switch">
-                                    <input type="checkbox">
-                                    <span class="slider round"></span>
-                                </label>
-                                    
-
-                                <!-- <select class="input-box" name="featured_dish" id="featured_dish">
-                                    <?php
-                                    // foreach ($featured as $feature) {
-                                    //     echo "<option value='".$feature          ["featured_dish"]. "'>".$feature["featured_dish"]."</option>";
-                                    // }
-                                    ?>
-                                </select> -->
-                            </div>
-
-                            <div class="input-container">
-                                <label class="input-text">Dish Image:</label>
-
-                                <input type="file" id="file" name="dish_img" onchange="readURL(this)" hidden>
-                                <label for="file">
-                                    <img id="preview" class="upload-box" src="../imgs/upload.svg" alt="">
-                                </label>               
-
-                            </div>
-                        </div>
-                        <div class="div-button">
-                            <button class="input-button">Submit</button>
-                        </div>
-
-
-
-
-
-                        <!-- <div class="admin-text">
-                                <label for="destination_lname">Dish name:</label>
-                                <input id="destination_lname" class="input-admin" name="destination_lname" type="text">
-                            </div>
-
-                            <div class="admin-text">
-                                <label for="destination_description">Dish description:</label>
-                                <input id="destination_description" class="input-admin" name="destination_description"
-                                    type="text">
-                            </div>
-
-                            <div class="admin-text">
-                                <label for="destination_price">Dish category:</label>
-                                <input id="destination_price" class="input-admin" name="destination_price" type="text">
-                            </div>
-
-                            <div class="admin-text">
-                                <label for="destination_price">Dish price:</label>
-                                <input id="destination_price" class="input-admin" name="destination_price" type="text">
-                            </div>
-
-                            <div class="admin-text">
-                                <label for="destination_price">People quantity:</label>
-                                <input id="destination_price" class="input-admin" name="destination_price" type="text">
-                            </div>
-
-                            <div class="admin-text admin-forms">
-                                <label for="**" class="admin-text">Dish Image</label>
-                                <img id="preview" src="./imgs/destination-placeholder.webp" alt="Preview">
-                                <input id="destination_image" type="file" name="dish_image" onchange="readURL(this)">
-                            </div> -->
-
                     </div>
-                </div>
             </div>
             </form>
             </section>
         </div>
-        
+
     </main>
     <!-- main -->
     <script>
@@ -197,6 +188,16 @@ $featured = $database->select("tb_dishes", "featured_dish", );
                     let preview = document.getElementById('preview').setAttribute('src', e.target.result);
                 }
                 reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        function checkValue() {
+            var checkbox = document.getElementById("featured");
+            var valueField = document.getElementById("value");
+            if (checkbox.checked) {
+                valueField.value = 1;
+            } else {
+                valueField.value = 0;
             }
         }
 

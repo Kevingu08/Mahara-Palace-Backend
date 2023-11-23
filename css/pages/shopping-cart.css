@@ -72,27 +72,27 @@
 }
 
 
-table {
+/* table {
   width: 100%;
-  margin: 0 auto;
+  margin: 0 auto; */
   /* display: block; */
-  overflow-x: auto;
-  border-spacing: 0;
-}
+  /* overflow-x: auto;
+  border-spacing: 0; */
+/* } */
 
-tbody {
+/* tbody {
   white-space: nowrap;
-}
+} */
 
-th,
+/* th,
 td {
   /* padding: .5rem 1rem; */
-  padding-right: 1rem;
+  /* padding-right: 1rem;
   border-top-width: 0;
   border-left-width: 0;
-}
+}  */
 
-th {
+/* th {
   position: sticky;
   top: 0;
   background: #fff;
@@ -106,4 +106,4 @@ td:last-child {
 
 tr:last-child td {
   border-bottom-width: 0;
-}
+} */
