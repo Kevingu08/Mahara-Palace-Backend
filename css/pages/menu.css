@@ -14,20 +14,25 @@
   border: solid var(--clr-cream);
   padding: 0.4rem 2rem;
   border-radius: 1rem;
+  cursor: pointer;
 }
 
-.category-tag:hover {
+.active-category-tag{
   background: var(--clr-cream);
-  transition: ease 0.3s;
+  cursor: pointer;
 }
 
-.category-tag:focus {
-  background: var(--clr-cream);
-}
 
 /* clase para cambiar el color del menu (debido a que se reutiliza) */
 .background-menu {
   background: var(--clr-gray-bg);
+}
+
+.autofill-menu{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 1rem;
+  margin-bottom: 4rem;
 }
 
 /* clase para quitar los valores por defecto de la etiqueta <a> */

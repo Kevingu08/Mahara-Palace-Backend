@@ -71,7 +71,7 @@
                     echo "</tbody>";
                     echo "<tfoot>";
                         echo "<tr>";
-                            echo "<td class='shopping-td td-text-total'>Total</td>";
+                            echo "<td class='shopping-td td-text-total' colspan='5'>Total</td>";
                             echo "<td class='shopping-td td-total'>$120</td>";
                         echo "</tr>";
                     echo "</tfoot>";
