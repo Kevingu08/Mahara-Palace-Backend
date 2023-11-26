@@ -1,8 +1,8 @@
 <?php 
     require_once './database.php';
     $link = "";
-    
-
+    $dish_list = [];
+    $dish_details = [];
     if($_GET){
         
         $items = $database->select("tb_dishes",[
@@ -22,9 +22,9 @@
         ],[
             "id_dishes"=>$_GET["id"]
         ]);
-    }
 
-    
+        $dish_image = $items[0]["dish_img"];
+    }
 
     if(isset($_SERVER["CONTENT_TYPE"])){
         session_start();
@@ -34,17 +34,15 @@
                 $content = trim(file_get_contents("php://input"));
                 $decoded = json_decode($content, true);
 
-                $id_dish = $decoded["id_dish"];
-                $quantity_dishes = $decoded["quantity_dishes"];
+                if(isset($_COOKIE["dishList"])){
+                    $data = json_decode($_COOKIE['dishList'], true);
+                    $dish_list = $data;
+                }
 
-                $addedDish = array(
-                    "id" => $id_dish,
-                    "quantity" => $quantity_dishes
-                );
-                $cartList = $_SESSION["cartList"];
-                $cartList[$id_dish] = $addedDish;
-                $_SESSION["cartList"] = $cartList;
-
+                $dish_details["id"] = $decoded["id_dish"];
+                $dish_details["qty"] = $decoded["quantity_dishes"];
+                $dish_list[] = $dish_details;
+                setcookie("dishList", json_encode($dish_list), time()+72000);
             }
         }
         else{
@@ -61,6 +59,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
     <link rel="stylesheet" href="./css/main.css">
     <title>Description</title>
 </head>
@@ -84,11 +83,11 @@
                     echo "<div class='description-btn-container'>";
                     //echo "<form method='post' action='description.php'>";
                         echo "<div class='quantity-container'>";
-                            echo "<input class='quantity-btn' type='button' value='-'>";
-                            echo "<input class='quantity-input' type='text' id='quantity' name='quantity' value='1'>";
-                            echo "<input class='quantity-btn' type='button' value='+'>";
+                            echo "<input class='quantity-btn' id='decrease-btn' type='button' value='-'>";
+                            echo "<input class='quantity-input' type='number' id='input-quantity' name='quantity' value='1' min='1' max='50'>";
+                            echo "<input class='quantity-btn' id='increase-btn' type='button' value='+'>";
                         echo "</div>";
-                        echo "<input class='btn-main' type='submit' value='Order Now' onClick='addToCart(".$items[0]["id_dishes"].")'>";
+                        echo "<input class='btn-main' type='submit' value='Order Now' onClick='addToCart(".$items[0]["id_dishes"].")' >";
                         //echo "<input type='hidden' value='".$items[0]["id_dishes"]."' name='id'>";
                     //echo "</form>";
                     echo "</div>";
@@ -163,11 +162,52 @@
         include "./parts/footer.php";
     ?>
     <script src="./js/main.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
     <script>
+        function showToastify(message){
+            Toastify({
+              text: message,
+              duration: 2000,
+              newWindow: true,
+              close: true,
+              gravity: "top", // `top` or `bottom` 
+              position: "center", // `left`, `center` or `right`
+              stopOnFocus: true, // Prevents dismissing of toast on hover
+              style: {
+                background: "linear-gradient(to right, #813022, #511E15)",
+              },
+            }).showToast();
+        }
+
+
+        let decreaseBtn = document.getElementById("decrease-btn");
+        let increaseBtn = document.getElementById("increase-btn");
+        let inputQuantity = document.getElementById("input-quantity");
+        let quantityDish;
+        decreaseBtn.addEventListener("click", function(){
+            quantityDish = inputQuantity.value;
+            if(quantityDish > 1){
+                quantityDish--;
+                inputQuantity.value = quantityDish;
+            }
+        });
         
+        increaseBtn.addEventListener("click", function(){
+            quantityDish = inputQuantity.value;
+            if(quantityDish < 20){
+                quantityDish++;
+                inputQuantity.value = quantityDish;
+            }
+        });
+
         function addToCart(id){
-            let quantity = document.getElementById("quantity").value;
-            console.log("click");
+            let quantity = inputQuantity.value;
+            console.log (id);
+            if(quantity < 1){
+                inputQuantity.value = 1;
+                showToastify("the value must be equal to or greater than 1");
+                return;
+            }
             let info = {
                 id_dish: id,
                 quantity_dishes: quantity
@@ -187,8 +227,10 @@
             .then(data => {
                 let response = data;
                 if(response.length > 0){
-                    console.log("true");
                     window.location.href = "login.php";
+                }
+                else{
+                    showToastify("Added dish");
                 }
             })
             .catch(err => console.log("error: " + err));
