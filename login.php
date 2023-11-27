@@ -2,12 +2,9 @@
     require_once './database.php';
 
     $loginMessage = "";
-    $signinMessage = "";
-    
+    $signinMessage = "";    
     // Reference: https://medoo.in/api/select
     // Reference: https://medoo.in/api/insert
-    
-
     if($_POST){
         if(isset($_POST["login"])){
             $user = $database->select("tb_users","*",[
@@ -18,7 +15,8 @@
                 if(password_verify($_POST["password"], $user[0]["password"])){
                     session_start();
                     $_SESSION["isLoggedIn"] = true;
-                    $_SESSION["cartList"] = array();
+                    $_SESSION["id"] = $user[0]["id_user"];
+                    $_SESSION["fullname"] = $user[0]["fullname"];
                     header("location: index.php");
                 }
                 else{
@@ -40,6 +38,7 @@
             else{
                 $pass = password_hash($_POST["password"], PASSWORD_DEFAULT, ['cost' => 10]);
                 $database->insert("tb_users",[
+                    "fullname"=>$_POST["fullname"],
                     "usr"=>$_POST["username"],
                     "email"=>$_POST["email"],
                     "password"=>$pass
@@ -83,6 +82,7 @@
                 <img src="./imgs/user-plus-alt-1-svgrepo-com.svg" alt="">
                 <h2>Sign In</h2>
                 <form class="form-container" method="post" action="login.php">
+                    <input class="form-input" id="signin-fullname" type="text" placeholder="Fullname" name="fullname"> 
                     <input class="form-input" id="signin-username" type="text" placeholder="Username" name="username"> 
                     <input class="form-input" id="signin-email" type="text" placeholder="Email" name="email">
                     <input class="form-input" id="signin-password" type="password" placeholder="Password" name="password">

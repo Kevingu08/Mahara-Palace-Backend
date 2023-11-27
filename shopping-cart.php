@@ -1,7 +1,7 @@
 <?php 
     require_once './database.php';
-    $data = json_decode($_COOKIE['dishList'], true);
-    // var_dump($data);
+    $data;
+
     $cart_list = [];
     $selected_dish = [];
     $items = [];
@@ -10,6 +10,7 @@
 
     if(isset($_SESSION["isLoggedIn"])){
         if(isset($_COOKIE['dishList'])){
+            $data = json_decode($_COOKIE['dishList'], true);
             $cart_list = $data;
             // var_dump($cart_list);
         }
@@ -33,24 +34,42 @@
         if(isset($_SESSION["isLoggedIn"])){
             $content = trim(file_get_contents("php://input"));
             $decoded = json_decode($content, true);
+            $response;
             //actualizar cantidad en el cart y obtener el precio
-            foreach($data as $index => $item){
-                if($item["id"] == $decoded["id_dish"]){
-                    $data[$index]["qty"] = $decoded["qty"];
-
-                    $dish_price = $database->select("tb_dishes",[
-                        "tb_dishes.dish_price"
-                    ],[
-                        "id_dishes" => $decoded["id_dish"]
-                    ]);
-
-                    $totalPrice["price"] = ($dish_price[0]["dish_price"] * $decoded["qty"]);
-                } 
+            if(isset($decoded["qty"])){
+                
+                foreach($data as $index => $item){
+                    if($item["id"] == $decoded["id_dish"]){
+                        $data[$index]["qty"] = $decoded["qty"];
+    
+                        $dish_price = $database->select("tb_dishes",[
+                            "tb_dishes.dish_price"
+                        ],[
+                            "id_dishes" => $decoded["id_dish"]
+                        ]);
+    
+                        $totalPrice["price"] = ($dish_price[0]["dish_price"] * $decoded["qty"]);
+                    } 
+                }
+                $response["index"] = $decoded["index"];
+                $response["total_price"] = $totalPrice["price"];
+                
             }
+            else{
+                $response[] = "there is not";
+                foreach($cart_list as $index => $item){
+                    if($item["id"] == $decoded["id_dish"]){
+                        array_splice($cart_list, $index, 1);
+                    }
+                }
+                $data = $cart_list;
+            }
+
             //actualizar la cookie con el cambio de cantidad
             setcookie('dishList', json_encode($data), time()+72000);
+
             //enviar el precio total para actualizarlo en la vista
-            echo json_encode($totalPrice);
+            echo json_encode($response);
             exit;
         }
     }
@@ -101,7 +120,7 @@
                                     echo "<button class='quantity-btn-shopping' onCLick='increaseQuantity(".$iterator.", ".$dish["id_dishes"].")'>+</button>";
                                 echo "</div>";
                                 echo "</td>";
-                                echo "<td class='shopping-td'><button>Delete</button></td>";
+                                echo "<td class='shopping-td'><button onClick='deleteItem(this, ".$dish["id_dishes"].")' >Delete</button></td>";
                                 echo "<td class='shopping-td' id='total-price-".$iterator."'>$".($dish["dish_price"]*$cart_list[$iterator]["qty"])."</td>";
                             echo "</tr>";
                         }
@@ -133,6 +152,19 @@
         let idDish;
         let totalPrice;
 
+        function deleteItem(obj, id){
+            let parentBtn = obj.parentNode;
+            let trTable = parentBtn.parentNode;
+            console.log(trTable);
+            if(trTable != null){
+                trTable.remove();
+                let info = {
+                    id_dish: id
+                }
+                sendDataByAjax(info);
+            }
+        }
+
         function increaseQuantity(index, id){
             inputQty = document.getElementById("input-qty-"+index);
             quantity = inputQty.value;
@@ -142,9 +174,10 @@
                 inputQty.value = quantity;
                 let info = {
                     id_dish: id,
-                    qty: quantity
+                    qty: quantity,
+                    index: index
                 }
-                sendDataByAjax(info, index);
+                sendDataByAjax(info);
             }
         }
 
@@ -157,14 +190,15 @@
                 inputQty.value = quantity;
                 let info = {
                     id_dish: id,
-                    qty: quantity
+                    qty: quantity,
+                    index: index
                 }
-                sendDataByAjax(info, index);
+                sendDataByAjax(info);
                 
             }
         }
 
-        function sendDataByAjax(info, index){
+        function sendDataByAjax(info){
             fetch("http://localhost/Mahara-Palace-Backend/shopping-cart.php",{
                 method: "POST",
                 mode: "same-origin",
@@ -177,8 +211,10 @@
             })
             .then(response => response.json())
             .then(data => {
-                console.log(data["price"]);
-                document.getElementById("total-price-"+index).innerHTML = "$"+data["price"].toFixed(1);
+                if(data["total_price"] != null){
+                    document.getElementById("total-price-"+data["index"]).innerHTML = "$"+data["total_price"].toFixed(1);
+                }
+                console.log(data);
             })
             .catch(err => console.log("error: " + err));
         }

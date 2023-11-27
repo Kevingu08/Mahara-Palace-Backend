@@ -5,6 +5,7 @@ let inputLoginUsername = document.getElementById("login-username");
 let inputLoginPassword = document.getElementById("login-password");
 let inputLoginBtn = document.getElementById("login-btn");
 let linkPassword = document.getElementById("link-password");
+let inputSigninFullname = document.getElementById("signin-fullname");
 let inputSigninUsername = document.getElementById("signin-username");
 let inputSigninEmail = document.getElementById("signin-email");
 let inputSigninPassword = document.getElementById("signin-password");
@@ -35,6 +36,7 @@ function hideLoginElements(){
 
 function showSigninElements(){
     signinContainer.setAttribute("activated", 1);
+    inputSigninFullname.style.display = "block";
     inputSigninUsername.style.display = "block";
     inputSigninEmail.style.display = "block";
     inputSigninPassword.style.display = "block";
@@ -43,6 +45,7 @@ function showSigninElements(){
 
 function hideSigninElements(){
     signinContainer.setAttribute("activated", 0)
+    inputSigninFullname.style.display = "none";
     inputSigninEmail.style.display = "none";
     inputSigninPassword.style.display = "none";
     inputSigninUsername.style.display = "none";
