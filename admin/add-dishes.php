@@ -83,7 +83,7 @@ if ($_POST) {
                 <li><a class="nav-list-link" href="#footer">About Us</a></li>
                 <li><a class="nav-list-link" href="#footer">Contact</a></li>
             </ul>
-            <a href="#" class="btn-login">Log In / Sing In</a>
+            <a href="#" class="btn-login">Log In / Sign In</a>
         </nav>
         <!-- Barra de navegacion -->
     </header>

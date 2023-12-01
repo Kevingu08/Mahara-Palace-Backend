@@ -3,6 +3,13 @@ require_once '../database.php';
 
 $dishes = $database->select("tb_dishes", "*");
 
+if ($_POST && isset($_POST['dish_id'])) {
+    $database->delete("tb_dishes", [
+        "id_dishes" => $_POST["dish_id"]
+    ]);
+    header("location: list-dishes.php");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -47,6 +54,7 @@ $dishes = $database->select("tb_dishes", "*");
 
 
     <!-- main -->
+    <span class="overlay"></span>
     <main class="admin">
         <div class="main-container">
             <!--SideBar-->
@@ -78,7 +86,8 @@ $dishes = $database->select("tb_dishes", "*");
                                 echo "<td class='table-td'>" . $dish["id_dish_category"] . "</td>";
                                 echo "<td class='table-td'>" . $dish["dish_price"] . "</td>";
                                 echo "<td class='table-td'>" . $dish["id_dish_quantity"] . "</td>";
-                                echo "<td><a href='edit-dishes.php?id_dishes=" . $dish["id_dishes"] . "'><img src='../imgs/edit.svg' alt='edit icon'></a>  <a href='delete-dish.php?id=" . $dish["id_dishes"] . "''><img src='../imgs/delete-icon.svg' alt='edit icon'></a></td>";
+                                echo "<td><a href='edit-dishes.php?id_dishes=" . $dish["id_dishes"] . "'><img src='../imgs/edit.svg' alt='edit icon'></a> 
+                                <button class='btn-delete' onclick='showPopUp(\"" . $dish["id_dishes"] . "\",\"" . $dish["dish_name"] . "\",\"" . $dish["dish_img"] . "\")'><img src='../imgs/delete-icon.svg' alt='delete icon'></button></td>";
                             }
                             ?>
                             </tr>
@@ -86,8 +95,45 @@ $dishes = $database->select("tb_dishes", "*");
                         </thead>
                     </table>
                 </div>
+
+                <section class="pop-up">
+                    <label for="file">
+                        <img id="preview" class="upload-box-delete" src="" alt="preview">
+                    </label>
+                    <h2 class="admin-title">Are you sure you want to delete <span id="name_dish"> </span></h2>
+                    <button id="delete" class="input-button">Delete</button>
+                    <button id="cancel" class="input-button">Cancel</button>
+                    <form id="deleteDish" method="post" action="list-dishes.php">
+                        <input type="hidden" id="dish_id" name="dish_id" value="">
+                    </form>
+                </section>
+
             </div>
     </main>
+    <script>
+
+        let popUp = document.querySelector(".pop-up");
+        let overlay = document.querySelector(".overlay");
+        let btnCancel = document.getElementById("cancel");
+        let btnDelete = document.getElementById("delete");
+
+        function showPopUp(id_dishes, dish_name, dish_img) {
+            let preview = document.getElementById('preview').setAttribute('src', '../imgs/' + dish_img);
+            document.getElementById("dish_id").value = id_dishes;
+            document.getElementById("name_dish").innerHTML = dish_name;
+            popUp.classList.add("active");
+            overlay.classList.add("active");
+
+            btnCancel.addEventListener("click", () => {
+                popUp.classList.remove("active");
+                overlay.classList.remove("active");
+            });
+
+            btnDelete.addEventListener("click", () => {
+                document.getElementById("deleteDish").submit();
+            });
+        }
+    </script>
 </body>
 
 </html>
