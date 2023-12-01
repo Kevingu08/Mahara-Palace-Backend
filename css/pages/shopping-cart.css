@@ -107,6 +107,17 @@ tr:last-child td {
   border-bottom-width: 0;
 } */
 
+.ordering-type-container{
+  display: grid;
+  gap: 1rem;
+  margin: 1rem 0;
+}
+
+.form-item{
+  display: flex;
+  gap: 1rem;
+}
+
 @media(max-width:768px){
   .shopping-cart{
     padding: 1rem 2rem;

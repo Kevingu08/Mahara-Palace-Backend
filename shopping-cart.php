@@ -5,6 +5,7 @@
     $cart_list = [];
     $selected_dish = [];
     $items = [];
+    $total = 0;
     session_start();
     // session_destroy();
 
@@ -12,7 +13,6 @@
         if(isset($_COOKIE['dishList'])){
             $data = json_decode($_COOKIE['dishList'], true);
             $cart_list = $data;
-            // var_dump($cart_list);
         }
         if(count($cart_list) > 0){
             foreach($cart_list as $dish){
@@ -24,7 +24,7 @@
                 ],[
                     "id_dishes" => $dish["id"]
                 ]);
-                // $selected_dish["qty"] = $dish["qty"];
+
                 $items[] = $selected_dish;
             }
         }
@@ -35,9 +35,8 @@
             $content = trim(file_get_contents("php://input"));
             $decoded = json_decode($content, true);
             $response;
-            //actualizar cantidad en el cart y obtener el precio
+            //actualizar qty en el cart y obtener el precio
             if(isset($decoded["qty"])){
-                
                 foreach($data as $index => $item){
                     if($item["id"] == $decoded["id_dish"]){
                         $data[$index]["qty"] = $decoded["qty"];
@@ -53,10 +52,9 @@
                 }
                 $response["index"] = $decoded["index"];
                 $response["total_price"] = $totalPrice["price"];
-                
             }
             else{
-                $response[] = "there is not";
+                //eliminar item del cart
                 foreach($cart_list as $index => $item){
                     if($item["id"] == $decoded["id_dish"]){
                         array_splice($cart_list, $index, 1);
@@ -64,6 +62,12 @@
                 }
                 $data = $cart_list;
             }
+            //actualizar precio total
+            $total = 0;
+            foreach($data as $item){
+                $total += ($item["qty"] * $item["price"]);
+            }
+            $response["total"] = $total;
 
             //actualizar la cookie con el cambio de cantidad
             setcookie('dishList', json_encode($data), time()+72000);
@@ -123,16 +127,37 @@
                                 echo "<td class='shopping-td'><button onClick='deleteItem(this, ".$dish["id_dishes"].")' >Delete</button></td>";
                                 echo "<td class='shopping-td' id='total-price-".$iterator."'>$".($dish["dish_price"]*$cart_list[$iterator]["qty"])."</td>";
                             echo "</tr>";
+                            $total += ($dish["dish_price"]*$cart_list[$iterator]["qty"]);
                         }
                     }
                     echo "</tbody>";
                     echo "<tfoot>";
                         echo "<tr>";
                             echo "<td class='shopping-td td-text-total' colspan='5'>Total</td>";
-                            echo "<td class='shopping-td td-total'>$120</td>";
+                            echo "<td class='shopping-td td-total' id='total-td'>$".$total."</td>";
                         echo "</tr>";
                     echo "</tfoot>";
                     echo "</table>";
+                    echo "<form method='post' action='index.php'>";
+                        echo "<h3>Ordering methods</h3>";
+                        echo "<div class='ordering-type-container'>";
+                            echo "<div class='form-item'>";
+                                echo "<input type='radio' id='express-item' value='1' name='ordering_type' data-id-order='1' onClick='setIdOrder(this)' checked>"; 
+                                echo "<label for='express-item'>Express</label>";
+                            echo "</div>";
+                            echo "<div class='form-item'>";
+                                echo "<input type='radio' id='salon-item' value='2' name='ordering_type' data-id-order='2' onClick='setIdOrder(this)'>"; 
+                                echo "<label for='salon-item'>Salon</label>";
+                            echo "</div>";
+                            echo "<div class='form-item'>";
+                                echo "<input type='radio' id='go-to-carry-item' value='3' name='ordering_type' data-id-order='3' onClick='setIdOrder(this)'>"; 
+                                echo "<label for='go-to-carry-item''>Go to carry</label>";
+                            echo "</div>";
+                        echo "</div>";
+                        
+                        echo "<input type='submit' value='Confim cart' name='confirm_cart'>";
+                        echo "<input type='hidden' value='1' id='input-order' name='id_order'>";
+                    echo "</form>";
                 }
                 else{
                     echo "<h3>There are no elements</h3>";
@@ -150,7 +175,9 @@
         let inputQty;
         let quantity;
         let idDish;
-        let totalPrice;
+        
+        let inputOrder = document.getElementById("input-order");
+        let totalTd = document.getElementById("total-td");
 
         function deleteItem(obj, id){
             let parentBtn = obj.parentNode;
@@ -198,6 +225,16 @@
             }
         }
 
+        function setIdOrder(obj){
+            let idOrder = obj.getAttribute("data-id-order");
+            // console.log(idOrder.type);
+            if(obj.checked){
+                inputOrder.value = idOrder;
+                console.log(inputOrder.value);
+                
+            }
+        }
+
         function sendDataByAjax(info){
             fetch("http://localhost/Mahara-Palace-Backend/shopping-cart.php",{
                 method: "POST",
@@ -211,10 +248,13 @@
             })
             .then(response => response.json())
             .then(data => {
+                let totalPrice = 0;
                 if(data["total_price"] != null){
+                    //console.log(data["total_price"]);
                     document.getElementById("total-price-"+data["index"]).innerHTML = "$"+data["total_price"].toFixed(1);
                 }
-                console.log(data);
+                console.log(data["total"]);
+                totalTd.innerHTML = "$"+data["total"].toFixed(1);
             })
             .catch(err => console.log("error: " + err));
         }

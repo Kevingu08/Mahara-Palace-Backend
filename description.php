@@ -41,6 +41,7 @@
 
                 $dish_details["id"] = $decoded["id_dish"];
                 $dish_details["qty"] = $decoded["quantity_dishes"];
+                $dish_details["price"] = $decoded["dish_price"];
                 $dish_list[] = $dish_details;
                 setcookie("dishList", json_encode($dish_list), time()+72000);
             }
@@ -87,7 +88,7 @@
                             echo "<input class='quantity-input' type='number' id='input-quantity' name='quantity' value='1' min='1' max='50'>";
                             echo "<input class='quantity-btn' id='increase-btn' type='button' value='+'>";
                         echo "</div>";
-                        echo "<input class='btn-main' type='submit' value='Order Now' onClick='addToCart(".$items[0]["id_dishes"].")' >";
+                        echo "<input class='btn-main' type='submit' value='Order Now' onClick='addToCart(".$items[0]["id_dishes"].", ".$items[0]["dish_price"].")' >";
                         //echo "<input type='hidden' value='".$items[0]["id_dishes"]."' name='id'>";
                     //echo "</form>";
                     echo "</div>";
@@ -200,7 +201,7 @@
             }
         });
 
-        function addToCart(id){
+        function addToCart(id, price){
             let quantity = inputQuantity.value;
             console.log (id);
             if(quantity < 1){
@@ -210,8 +211,11 @@
             }
             let info = {
                 id_dish: id,
-                quantity_dishes: quantity
+                quantity_dishes: quantity,
+                dish_price: price
             }
+
+            console.log(price);
 
             fetch("http://localhost/Mahara-Palace-Backend/description.php",{
                 method: "POST",
