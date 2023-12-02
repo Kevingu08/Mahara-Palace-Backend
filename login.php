@@ -76,7 +76,7 @@
                     <input type="hidden" name="login" value="1">
                 </form>
 
-                <a id="link-password" class="link-password" href="#">Forgot password?</a>
+                <a id="link-password" class="link-password" href="reset-password.php">Forgot password?</a>
             </div>
             <div class="signin-container" id="signin-container">
                 <img src="./imgs/user-plus-alt-1-svgrepo-com.svg" alt="">

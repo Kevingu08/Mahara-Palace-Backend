@@ -155,7 +155,7 @@
                             echo "</div>";
                         echo "</div>";
                         
-                        echo "<input type='submit' value='Confim cart' name='confirm_cart'>";
+                        echo "<input type='submit' class='btn-main' value='Confim cart' name='confirm_cart'>";
                         echo "<input type='hidden' value='1' id='input-order' name='id_order'>";
                     echo "</form>";
                 }
