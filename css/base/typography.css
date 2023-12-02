@@ -86,7 +86,7 @@
 .admin-title {
     font-family: var(--ff-main);
     font-weight: var(--fw-bold);
-    font-size: var(--fs-lg);
+    font-size: var(--fs-xmd);
     margin-top: 2rem;
     margin-left: 2rem;
 }
