@@ -5,6 +5,8 @@ $url_params = "";
 $lang = "";
 $dish_list = [];
 $dish_details = [];
+session_start();
+// session_destroy();
 
 if ($_GET) {
     if (isset($_GET["lang"]) && $_GET["lang"] == "tr") {
@@ -55,7 +57,7 @@ if ($_GET) {
 }
 
 if (isset($_SERVER["CONTENT_TYPE"])) {
-    session_start();
+   
     if (isset($_SESSION["isLoggedIn"])) {
         $contentType = $_SERVER["CONTENT_TYPE"];
         if ($contentType == "application/json") {
@@ -65,12 +67,24 @@ if (isset($_SERVER["CONTENT_TYPE"])) {
             if (isset($_COOKIE["dishList"])) {
                 $data = json_decode($_COOKIE['dishList'], true);
                 $dish_list = $data;
+                
             }
 
-            $dish_details["id"] = $decoded["id_dish"];
-            $dish_details["qty"] = $decoded["quantity_dishes"];
-            $dish_details["price"] = $decoded["dish_price"];
-            $dish_list[] = $dish_details;
+            // $repeatedDish = false;
+            // foreach($dish_list as $index => $item){
+            //     if($item[0]["id_dishes"] == $decoded["id_dish"]){
+            //         $dish_list[$index]["qty"] += $decoded["quantity_dishes"];
+            //         $repeatedDish = true;
+            //         break;
+            //     }
+            // }
+
+            // if($repeatedDish == false){
+                $dish_details["id"] = $decoded["id_dish"];
+                $dish_details["qty"] = $decoded["quantity_dishes"];
+                $dish_details["price"] = $decoded["dish_price"];
+                $dish_list[] = $dish_details;
+            // }
             setcookie("dishList", json_encode($dish_list), time() + 72000);
         }
     } else {

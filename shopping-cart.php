@@ -33,7 +33,9 @@
         }
         
         if($_POST) {
-            var_dump($_POST);
+            $data = json_decode($_POST["data"], true);
+            var_dump($data);
+            
         }
     }   
 
@@ -78,6 +80,7 @@
                     }
                 }
                 $data = $cart_list;
+
             }
             
             //actualizar precio total
@@ -95,9 +98,7 @@
             exit;
         }
     }
-
     
-
 ?>
 
 <!DOCTYPE html>
@@ -163,7 +164,7 @@
                     echo "<dialog class='modal-cart' id='modal'>";
                         echo "<h2>Confirm your purchase</h2>";
 
-                        echo "<form method='post' action='shopping-cart.php' class='modal-form' id='modal-form'>";
+                        echo "<form method='post' action='save-purchase.php' class='modal-form' id='modal-form'>";
 
                             echo "<div id='card-modal-container' class='card-modal-container'>";
                                 // se llena con JS
