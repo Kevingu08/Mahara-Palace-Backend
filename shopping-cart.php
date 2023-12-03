@@ -2,17 +2,20 @@
     require_once './database.php';
     $data;
 
+    $response = [];
     $cart_list = [];
     $selected_dish = [];
     $items = [];
     $total = 0;
     session_start();
     // session_destroy();
+   
 
     if(isset($_SESSION["isLoggedIn"])){
         if(isset($_COOKIE['dishList'])){
             $data = json_decode($_COOKIE['dishList'], true);
             $cart_list = $data;
+            // var_dump($cart_list);
         }
         if(count($cart_list) > 0){
             foreach($cart_list as $dish){
@@ -28,13 +31,19 @@
                 $items[] = $selected_dish;
             }
         }
+        
+        if($_POST) {
+            var_dump($_POST);
+        }
     }   
 
     if(isset($_SERVER["CONTENT_TYPE"])){
+
         if(isset($_SESSION["isLoggedIn"])){
             $content = trim(file_get_contents("php://input"));
             $decoded = json_decode($content, true);
-            $response;
+            // $response;
+
             //actualizar qty en el cart y obtener el precio
             if(isset($decoded["qty"])){
                 foreach($data as $index => $item){
@@ -53,6 +62,14 @@
                 $response["index"] = $decoded["index"];
                 $response["total_price"] = $totalPrice["price"];
             }
+            elseif(isset($decoded["request"])){
+                $response["items"] = $items;
+                $qtyList = [];
+                foreach($cart_list as $item){
+                    $qtyList[] = intval($item["qty"]);
+                }
+                $response["qty_dishes"] = $qtyList;
+            }
             else{
                 //eliminar item del cart
                 foreach($cart_list as $index => $item){
@@ -62,13 +79,14 @@
                 }
                 $data = $cart_list;
             }
+            
             //actualizar precio total
             $total = 0;
             foreach($data as $item){
                 $total += ($item["qty"] * $item["price"]);
             }
             $response["total"] = $total;
-
+            
             //actualizar la cookie con el cambio de cantidad
             setcookie('dishList', json_encode($data), time()+72000);
 
@@ -77,6 +95,8 @@
             exit;
         }
     }
+
+    
 
 ?>
 
@@ -92,7 +112,7 @@
     <?php 
         include "./parts/nav.php";
     ?>
-    <main>
+    <main class="main-cart">
         <section class="shopping-cart">
             <h2 class="section-title">Your Cart</h2>
             <div class="shopping-container">
@@ -138,51 +158,100 @@
                         echo "</tr>";
                     echo "</tfoot>";
                     echo "</table>";
-                    echo "<form method='post' action='index.php'>";
-                        echo "<h3>Ordering methods</h3>";
-                        echo "<div class='ordering-type-container'>";
-                            echo "<div class='form-item'>";
-                                echo "<input type='radio' id='express-item' value='1' name='ordering_type' data-id-order='1' onClick='setIdOrder(this)' checked>"; 
-                                echo "<label for='express-item'>Express</label>";
+
+                    echo "<button id='btn-modal' class='btn-main'>confim</button>";
+                    echo "<dialog class='modal-cart' id='modal'>";
+                        echo "<h2>Confirm your purchase</h2>";
+
+                        echo "<form method='post' action='shopping-cart.php' class='modal-form' id='modal-form'>";
+
+                            echo "<div id='card-modal-container' class='card-modal-container'>";
+                                // se llena con JS
                             echo "</div>";
-                            echo "<div class='form-item'>";
-                                echo "<input type='radio' id='salon-item' value='2' name='ordering_type' data-id-order='2' onClick='setIdOrder(this)'>"; 
-                                echo "<label for='salon-item'>Salon</label>";
+
+                            
+                            echo "<div class='ordering-type-container'>";
+                            echo "<h3>Ordering methods</h3>";
+                                echo "<div class='form-item-cart'>";
+                                    echo "<input type='radio' id='express-item' value='1' name='ordering_type' data-id-order='1'  checked>";
+                                    echo "<label for='express-item'>Express</label>";
+                                echo "</div>";
+                                echo "<div class='form-item-cart'>";
+                                    echo "<input type='radio' id='salon-item' value='2' name='ordering_type' data-id-order='2' >";
+                                    echo "<label for='salon-item'>Salon</label>";
+                                echo "</div>";
+                                echo "<div class='form-item-cart'>";
+                                    echo "<input type='radio' id='go-to-carry-item' value='3' name='ordering_type' data-id-order='3'>";
+                                    echo "<label for='go-to-carry-item'>Go to carry</label>";
+                                echo "</div>";
                             echo "</div>";
-                            echo "<div class='form-item'>";
-                                echo "<input type='radio' id='go-to-carry-item' value='3' name='ordering_type' data-id-order='3' onClick='setIdOrder(this)'>"; 
-                                echo "<label for='go-to-carry-item''>Go to carry</label>";
+
+                            echo "<div class='cta-modal'>";
+                                echo "<button type='button' id='btn-close-modal' class='btn-main btn-close-modal'>close</button>";
+                                echo "<input id='btn-send-modal' type='submit' class='btn-submit-modal btn-main' oncLick='closeModal()'>";
                             echo "</div>";
-                        echo "</div>";
+
+                        echo "</form>";
                         
-                        echo "<input type='submit' class='btn-main' value='Confim cart' name='confirm_cart'>";
-                        echo "<input type='hidden' value='1' id='input-order' name='id_order'>";
-                    echo "</form>";
+                    echo "</dialog>";
+    
                 }
                 else{
                     echo "<h3>There are no elements</h3>";
                 }
                 ?>
-
             </div>
         </section>
     </main>
+
     <?php 
         include "./parts/footer.php";
     ?>
     <script src="./js/main.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/luxon@3.4.3/build/global/luxon.min.js"></script>
     <script>
+        let DateTime = luxon.DateTime;
+        const now = DateTime.now()
+
+        // console.log(now.year+"/"+now.month+"/"+now.day);
+        // console.log(now.hour +":"+now.minute+":"+now.second);
+
         let inputQty;
         let quantity;
         let idDish;
+        let cartDishList;
         
         let inputOrder = document.getElementById("input-order");
         let totalTd = document.getElementById("total-td");
+        let modal = document.getElementById("modal");
+        let btnModal = document.getElementById("btn-modal");
+        let btnCloseModal = document.getElementById("btn-close-modal");
+        let cardModalContainer = document.getElementById("card-modal-container");
+
+        
+        
+        btnModal.addEventListener("click", function(){
+            let info = {
+                request: "cartItems"
+            }
+            sendDataByAjax(info);
+            modal.showModal();
+            modal.style.display = "grid";
+            
+        });
+
+        btnCloseModal.addEventListener("click", function(){
+            modal.close();
+            modal.style.display = "none";
+        });
+
+        function closeModal(){
+            modal.close();
+        }
 
         function deleteItem(obj, id){
             let parentBtn = obj.parentNode;
             let trTable = parentBtn.parentNode;
-            console.log(trTable);
             if(trTable != null){
                 trTable.remove();
                 let info = {
@@ -195,7 +264,6 @@
         function increaseQuantity(index, id){
             inputQty = document.getElementById("input-qty-"+index);
             quantity = inputQty.value;
-            console.log(id);
             if(quantity < 20){
                 quantity++;
                 inputQty.value = quantity;
@@ -211,7 +279,6 @@
         function decreaseQuantity(index, id){
             inputQty = document.getElementById("input-qty-"+index);
             quantity = inputQty.value;
-            console.log(id);
             if(quantity > 1){
                 quantity--;
                 inputQty.value = quantity;
@@ -221,17 +288,6 @@
                     index: index
                 }
                 sendDataByAjax(info);
-                
-            }
-        }
-
-        function setIdOrder(obj){
-            let idOrder = obj.getAttribute("data-id-order");
-            // console.log(idOrder.type);
-            if(obj.checked){
-                inputOrder.value = idOrder;
-                console.log(inputOrder.value);
-                
             }
         }
 
@@ -250,11 +306,129 @@
             .then(data => {
                 let totalPrice = 0;
                 if(data["total_price"] != null){
-                    //console.log(data["total_price"]);
+                    //actualiza el precio del platillo modificado
                     document.getElementById("total-price-"+data["index"]).innerHTML = "$"+data["total_price"].toFixed(1);
                 }
-                console.log(data["total"]);
+                //actualiza el precio total
                 totalTd.innerHTML = "$"+data["total"].toFixed(1);
+
+                if(typeof data["items"] !== 'undefined'){
+                    
+                    let modalForm = document.getElementById("modal-form");
+
+                    if(document.getElementById("card-modal-container") !== null) document.getElementById("card-modal-container").remove();
+
+                    let newModalContainer = document.createElement("div");
+                    newModalContainer.classList.add("card-modal-container");
+                    newModalContainer.setAttribute("id", "card-modal-container");
+                    modalForm.appendChild(newModalContainer);
+
+                    let currentDate = now.year+"-"+now.month+"-"+now.day;
+                    let currentTime = now.hour +":"+now.minute+":"+now.second;
+                    let totalPriceModal = 0;
+                    
+                    let cartDishList = [];
+                    let currentDish;
+                    if(data["items"].length > 0){
+                        
+                        let dishList = data["items"];
+                        let qtyList = data["qty_dishes"];
+                        
+                        dishList.forEach(function(item, index){
+
+                            let modalCard = document.createElement("div");
+                            modalCard.classList.add("card-modal");
+                            newModalContainer.appendChild(modalCard);
+
+                            let imageContainer = document.createElement("div")
+                            imageContainer.classList.add("modal-image");
+                            modalCard.appendChild(imageContainer);
+
+                            let image = document.createElement("img");
+                            image.classList.add("element-image");
+                            image.setAttribute("src", './imgs/'+item[0]["dish_img"]);
+                            image.setAttribute("alt", item[0]["dish_name"]);
+                            imageContainer.appendChild(image);
+
+                            let cardContent = document.createElement("div")
+                            cardContent.classList.add("modal-content");
+                            modalCard.appendChild(cardContent);
+
+                            let dishName = document.createElement("p")
+                            dishName.innerText = item[0]["dish_name"];
+                            cardContent.appendChild(dishName);
+
+                            let divPrices = document.createElement("div");
+                            divPrices.classList.add("prices");
+                            cardContent.appendChild(divPrices);
+
+                            let priceTxt = document.createElement("p")
+                            priceTxt.innerText = "price: $" + item[0]["dish_price"];
+                            divPrices.appendChild(priceTxt);
+
+                            let qtyTxt = document.createElement("p")
+                            qtyTxt.innerText = "Quantity: " + qtyList[index];
+                            divPrices.appendChild(qtyTxt);
+
+                            let totalPrice = document.createElement("p")
+                            totalPrice.innerText = "Total price: $" + (qtyList[index] * item[0]["dish_price"]).toFixed(1);
+                            divPrices.appendChild(totalPrice);
+
+                            let inputTotalDish = document.createElement("input");
+                            inputTotalDish.type = "hidden";
+                            inputTotalDish.name = "total_price";
+                            inputTotalDish.value = (qtyList[index] * item[0]["dish_price"]);
+                            inputTotalDish.setAttribute("id", "input-total-dish-"+index);
+                            cardContent.appendChild(inputTotalDish);
+
+                            totalPriceModal += (qtyList[index] * item[0]["dish_price"]);
+
+                            let currentDish = {
+                                id: item[0]["id_dishes"],
+                                name: item[0]["dish_name"],
+                                price: item[0]["dish_price"],
+                                qty: qtyList[index],
+                                total_price: (qtyList[index] * item[0]["dish_price"]).toFixed(1)
+                            }
+
+                            cartDishList.push(currentDish);
+                        });
+                    }
+                    
+
+                    let totalTxt = document.createElement("h3")
+                    totalTxt.innerText = "Total price: $" + totalPriceModal;
+                    newModalContainer.appendChild(totalTxt);
+
+                    let inputTotal = document.createElement("input");
+                    inputTotal.type = "hidden";
+                    inputTotal.name = "total";
+                    inputTotal.value = totalPriceModal;
+                    newModalContainer.appendChild(inputTotal);
+
+                    let inputDate = document.createElement("input");
+                    inputDate.type = "hidden";
+                    inputDate.name = "date";
+                    inputDate.value = currentDate;
+                    inputDate.setAttribute("id", "input-date");
+                    newModalContainer.appendChild(inputDate);
+
+                    let inputTime = document.createElement("input");
+                    inputTime.type = "hidden";
+                    inputTime.name = "time";
+                    inputTime.value = currentTime;
+                    inputTime.setAttribute("id", "input-time");
+                    newModalContainer.appendChild(inputTime);
+
+                    console.log("Test: " + JSON.stringify(cartDishList));
+
+                    let inputData = document.createElement("input");
+                    inputData.type = "hidden";
+                    inputData.name = "data";
+                    inputData.value = JSON.stringify(cartDishList);
+                    inputData.setAttribute("id", "input-data");
+                    newModalContainer.appendChild(inputData);
+                }
             })
             .catch(err => console.log("error: " + err));
         }

@@ -54,6 +54,11 @@
     background: var(--clr-gray);
     text-align: center;
     padding: 1rem;
+    height: 4rem;
+}
+
+.card-content-slider{
+    height: auto;
 }
 
 .featured-dishes {

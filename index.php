@@ -3,6 +3,13 @@
 
     // Reference: https://medoo.in/api/select
     $items = $database->select("tb_dishes","*");
+
+    if($_POST){
+        var_dump($_POST);
+        echo "<br>";
+        $data = json_decode($_POST["data"], true);
+        // var_dump($data[0]);
+    }
     
 ?>
 
@@ -69,10 +76,10 @@
                                 echo "<div class='swiper-slide'>";
                                     echo "<div class='card-slider'>";
                                         echo "<img class='slider-img' src='./imgs/".$item["dish_img"]."' alt='aloo-gosht'>";
-                                        echo "<div class='card-content main-bg'>";
+                                        echo "<div class='card-content card-content-slider main-bg'>";
                                             echo "<div class='slider-text'>";
-                                                echo "<h3>".$item["dish_name"]."</h3>";
-                                                echo "<p>".substr($item["dish_description"],0,40)."...</p>";
+                                                echo "<h3>".substr($item["dish_name"],0, 20)."...</h3>";
+                                                echo "<p>".substr($item["dish_description"],0,50)."...</p>";
                                             echo "</div>";
                                             echo "<div class='btn-slider-container'>";
                                                 echo "<a class='btn-secondary link-text' href='./description.php?id=".$item["id_dishes"]."'>See more</a>";
