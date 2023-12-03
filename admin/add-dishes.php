@@ -33,14 +33,16 @@ if ($_POST) {
             echo "$img";
             move_uploaded_file($file_tmp, "../imgs/" . $img);
 
-
+var_dump($_POST);
             $database->insert("tb_dishes", [
                 "id_dish_quantity" => $_POST["quantity"],
                 "id_dish_category" => $_POST["category"],
                 "dish_name" => $_POST["name"],
+                "dish_name_trslt" => $_POST["name_trslt"],
                 "dish_img" => $img,
                 "featured_dish" => $_POST["value"],
                 "dish_description" => $_POST["description"],
+                "dish_description_trslt" => $_POST["description_trslt"],
                 "dish_price" => $_POST["price"]
             ]);
             header("Location: list-dishes.php");
@@ -115,9 +117,20 @@ if ($_POST) {
                             </div>
 
                             <div class="input-container">
+                                <label class="input-text">Dish translate name:</label>
+                                <input class="input-box" name="name_trslt" type="text" placeholder="Enter translated dish name">
+                            </div>
+
+                            <div class="input-container">
                                 <label class="input-text">Dish description:</label>
                                 <input class="input-box" name="description" type="text"
                                     placeholder="Enter dish description">
+                            </div>
+
+                            <div class="input-container">
+                                <label class="input-text">Dish translate description:</label>
+                                <input class="input-box" name="description_trslt" type="text"
+                                    placeholder="Enter translated dish description">
                             </div>
 
                             <div class="input-colunm">

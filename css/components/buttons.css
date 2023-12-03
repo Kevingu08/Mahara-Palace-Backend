@@ -1,5 +1,5 @@
-.btn-login{
-    padding: .6rem;
+.btn-login {
+    padding: 0.6rem;
     border-radius: 2rem;
     border: solid var(--clr-main);
     background: var(--clr-white);
@@ -9,13 +9,13 @@
     color: var(--clr-black);
 }
 
-.btn-login:hover{
+.btn-login:hover {
     background: var(--clr-main);
     color: var(--clr-white);
-    transition: .3s ease;
+    transition: 0.3s ease;
 }
 
-.btn-main{
+.btn-main {
     padding: 1rem 2rem;
     border-radius: 2rem;
     border: none;
@@ -26,7 +26,7 @@
     cursor: pointer;
 }
 
-.btn-secondary{
+.btn-secondary {
     padding: 1rem;
     border-radius: 2rem;
     border: solid var(--clr-main);
@@ -34,7 +34,7 @@
     text-decoration: none;
 }
 
-.btn-related-products{
+.btn-related-products {
     color: var(--clr-white);
     font-size: var(--fs-lg);
     padding: 1rem 4rem;
@@ -44,26 +44,26 @@
 }
 
 /* subrayado para los titulos de los section (decoracion) */
-.underscore{
+.underscore {
     width: 20%;
-    height: .3rem;
+    height: 0.3rem;
     background: var(--clr-main);
     border-radius: 2rem;
     margin-bottom: 1rem;
 }
 
-.underscore-admin{
+.underscore-admin {
     width: 20%;
-    height: .3rem;
+    height: 0.3rem;
     background: var(--clr-main);
     border-radius: 2rem;
     margin-bottom: 1rem;
     margin-left: 2rem;
 }
 
-.quantity-btn{
+.quantity-btn {
     background: var(--clr-main);
-    padding: .5rem;
+    padding: 0.5rem;
     border: none;
     cursor: pointer;
     color: var(--clr-white);
@@ -71,11 +71,23 @@
 }
 
 @media (max-width: 767.98px) {
-  .btn-login {
-    display: none;
-  }
-
-  .quantity-btn{
-    font-size: var(--fs-lg);
+    .btn-login {
+        display: none;
     }
+
+    .quantity-btn {
+        font-size: var(--fs-lg);
+    }
+}
+
+.translate-btn {
+    padding: 1rem 2rem;
+    border-radius: 2rem;
+    border: none;
+    background: var(--clr-main);
+    color: var(--clr-white);
+    text-decoration: none;
+    text-align: center;
+    cursor: pointer;
+    font-size: var(--fs-sm);
 }
