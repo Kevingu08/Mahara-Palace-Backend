@@ -1,3 +1,17 @@
+<?php 
+// session_start();
+// session_destroy();
+    $current_path = basename(__FILE__);
+    echo   $current_path;
+
+    $path = "login.php";
+    $iconPath = "./imgs/add-user.svg";
+    if($_SESSION){
+        $iconPath = "./imgs/user-icon.svg";
+        $path = "user-profile.php";
+    }
+?>
+
 <nav class="top-nav" id="top-navigation">
             <a href="./index.php"><img class="logo-maharaja" src="./imgs/Maharaja-palace-logo.png" alt="Maharaja palace logo"></a>
 
@@ -12,13 +26,14 @@
 
             <ul class="nav-list" id="navigation-list">
                 <li><a class="nav-list-link" href="index.php">Home</a></li>
-                <li><a class="nav-list-link" href="menu.php">Menu</a></li>
+                <li><a class="nav-list-link" href="#categories-container">Menu</a></li>
                 <li><a class="nav-list-link" href="#footer">About Us</a></li>
                 <li><a class="nav-list-link" href="#footer">Contact</a></li>
             </ul>
-            <div>
-                <a href="login.php" class="btn-login">Log In / Sing In</a>
-                <a href="shopping-cart.php"><img src="./imgs/shopping-cart-svgrepo-com.svg" alt="shopping cart"></a>
+
+            <div class="icon-nav-container">
+                <a href="<?php echo $path?>" class=""><img class="icon-nav" src="<?php echo $iconPath?>" alt=""></a>
+                <a href="shopping-cart.php"><img class="icon-nav" src="./imgs/shopping-cart-svgrepo-com.svg" alt="shopping cart"></a>
             </div>
             
         </nav>

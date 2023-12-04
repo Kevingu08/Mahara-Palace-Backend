@@ -1,16 +1,10 @@
 <?php 
     include_once './database.php';
-
+    session_start();
+    session_destroy();
     // Reference: https://medoo.in/api/select
-    $items = $database->select("tb_dishes","*");
-
-    if($_POST){
-        var_dump($_POST);
-        echo "<br>";
-        $data = json_decode($_POST["data"], true);
-        // var_dump($data[0]);
-    }
-    
+    $items = $database->select("tb_dishes","*"); 
+   
 ?>
 
 <!DOCTYPE html>
@@ -107,12 +101,12 @@
         <!-- slider -->
 
         <!-- menu -->
-        <section class="menu-container">
+        <section class="menu-container" >
             <h2 class="section-title">Categories</h2>
             <div class="underscore"></div>
     
             
-            <div class="menu">
+            <div class="menu" id="categories-container">
                 <a class="link-text" href="./menu.php?id=<?php echo 2?>">
                     <div class="card-menu">
                         <div class="card-image-container">

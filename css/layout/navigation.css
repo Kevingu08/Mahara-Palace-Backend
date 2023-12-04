@@ -55,6 +55,20 @@
   display: none;
 }
 
+.icon-nav-container{
+  display: flex;
+  gap: 1rem;
+}
+
+.icon-nav{
+  border-radius: .5rem;
+  padding: .2rem;
+}
+
+.icon-nav:hover{
+  background: var(--clr-main);
+}
+
 /* nav */
 
 @media (max-width: 767.98px) {
@@ -73,7 +87,7 @@
   .mobile-btn {
     display: block;
     position: absolute;
-    top: 3.5rem;
+    top: 3.3rem;
     right: 2rem;
     width: 1.5rem;
     height: 1.5rem;
@@ -105,7 +119,12 @@
     content: "";
     top: 0.5rem;
   }
+
   /* lineas (menu de hamburguesa) */
+
+  .mobile-check{
+    order: 3;
+  }
 
   /* animación menu de hamburguesa */
   .mobile-check:checked + .mobile-btn > .firts-line-menu {
@@ -146,5 +165,9 @@
     padding: 5rem;
     text-align: center;
     height: 80vh;
+  }
+
+  .icon-nav-container{
+    order: 1;
   }
 }

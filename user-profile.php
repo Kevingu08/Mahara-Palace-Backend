@@ -2,6 +2,7 @@
     include_once "./database.php";
     session_start();
     // session_destroy();
+    $isLoggedIn = false;
 
     if(isset($_SESSION)){
         if($_SESSION["isLoggedIn"]){
@@ -13,6 +14,7 @@
                 $orders = $database->select("tb_order","*",[
                     "id_user" => $user[0]["id_user"]
                 ]);
+                $isLoggedIn = true;
     
                 if(count($orders) > 0){
                     $items = $database->select("tb_order",[
@@ -33,9 +35,10 @@
                         "tb_order.id_user" => $user[0]["id_user"]
                     ]);
                 }
-    
-                var_dump($orders);
             }
+        }
+        else{
+            header("location: login.php");
         }
     }
 ?>
@@ -56,8 +59,8 @@
                     <img class="user-img" src="./imgs/user-svgrepo-com.svg" alt="user icon">
                 </div>
                 <div class="user-content">
-                    <p class="user-title"><?php echo $user[0]["fullname"]?></p>
-                    <p><?php echo $user[0]["email"]?></p>
+                    <p class="user-title"><?php echo ($isLoggedIn) ? $user[0]["fullname"] : "no"?></p>
+                    <p><?php echo  $user[0]["email"]?></p>
                 </div>
                 <div>
                     <button>logout</button>
@@ -105,41 +108,6 @@
                     echo "<h3>empty history</h3>";
                 }
             ?>
-            
-            <div class="history-item">
-                <div class="history-header">
-                    <p>Date: 00/00/00</p>
-                    <p>total price: $300</p>
-                </div>
-                <div class="history-content">
-                    <img class="history-img" src="./imgs/chai-tea-latte.jpg" alt="">
-                    <div class="history-text">
-                        <p>name</p>
-                        <p>qty</p>
-                        <p>price</p>
-                    </div>
-                </div>
-
-                <div class="history-content">
-                    <img class="history-img" src="./imgs/chai-tea-latte.jpg" alt="">
-                    <div class="history-text">
-                        <div>
-                            <p>name</p>
-                            <p>test</p>
-                        </div>
-                        <div>
-                            <p>name</p>
-                            <p>test</p>
-                        </div>
-                        <div>
-                            <p>name</p>
-                            <p>test</p>
-                        </div>
-                        
-                    </div>
-                </div>
-            </div>
-
         </section>
     </main>
 

@@ -6,6 +6,7 @@
     // Reference: https://medoo.in/api/select
     // Reference: https://medoo.in/api/insert
     if($_POST){
+        //apartado de login
         if(isset($_POST["login"])){
             $user = $database->select("tb_users","*",[
                 "usr"=>$_POST["username"]
@@ -27,6 +28,7 @@
                 $loginMessage = "wrong username or password";
             }
         }
+        //apartado de registro
         if(isset($_POST["signin"])){
             $validateUsername = $database->select("tb_users","*",[
                 "usr"=>$_POST["username"]
