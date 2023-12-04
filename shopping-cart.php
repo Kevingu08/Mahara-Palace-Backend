@@ -160,7 +160,7 @@
                     echo "</tfoot>";
                     echo "</table>";
 
-                    echo "<button id='btn-modal' class='btn-main'>confim</button>";
+                    echo "<button id='btn-modal' class='btn-main'>confirm</button>";
                     echo "<dialog class='modal-cart' id='modal'>";
                         echo "<h2>Confirm your purchase</h2>";
 
