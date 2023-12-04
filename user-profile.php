@@ -9,7 +9,7 @@
             $user = $database->select("tb_users","*",[
                 "id_user" => $_SESSION["id"]
             ]);
-    
+            
             if(count($user) > 0){
                 $orders = $database->select("tb_order","*",[
                     "id_user" => $user[0]["id_user"]
@@ -35,6 +35,8 @@
                         "tb_order.id_user" => $user[0]["id_user"]
                     ]);
                 }
+    
+                // var_dump($orders);
             }
         }
         else{
@@ -45,12 +47,14 @@
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/main.css">
     <title>User Profile</title>
 </head>
+
 <body>
     <main class="user-main">
         <div class="user-section">
@@ -59,12 +63,12 @@
                     <img class="user-img" src="./imgs/user-svgrepo-com.svg" alt="user icon">
                 </div>
                 <div class="user-content">
-                    <p class="user-title"><?php echo ($isLoggedIn) ? $user[0]["fullname"] : "no"?></p>
-                    <p><?php echo  $user[0]["email"]?></p>
+                    <p class="user-title"><?php echo if() $user[0]["fullname"]?></p>
+                    <p><?php echo $user[0]["email"]?></p>
                 </div>
-                <div>
-                    <button>logout</button>
-                </div>
+                <button>
+                    <img src="./imgs/exit-svgrepo-com.svg" alt="exit">
+                </button>
             </div>
         </div>
         <section class="user-history">
@@ -115,4 +119,5 @@
         include "./parts/footer.php";
     ?>
 </body>
+
 </html>
