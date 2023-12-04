@@ -63,7 +63,7 @@
                     <img class="user-img" src="./imgs/user-svgrepo-com.svg" alt="user icon">
                 </div>
                 <div class="user-content">
-                    <p class="user-title"><?php echo if() $user[0]["fullname"]?></p>
+                    <p class="user-title"><?php echo $user[0]["fullname"]?></p>
                     <p><?php echo $user[0]["email"]?></p>
                 </div>
                 <button>

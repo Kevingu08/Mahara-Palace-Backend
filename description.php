@@ -277,12 +277,18 @@ if (isset($_SERVER["CONTENT_TYPE"])) {
 
         function addToCart(id, price) {
             let quantity = inputQuantity.value;
-            console.log(id);
+            console.log(quantity);
             if (quantity < 1) {
                 inputQuantity.value = 1;
                 showToastify("the value must be equal to or greater than 1");
                 return;
             }
+            else if(quantity > 20){
+                inputQuantity.value = 1;
+                showToastify("the value must be equal to or less than 20");
+                return;
+            }
+
             let info = {
                 id_dish: id,
                 quantity_dishes: quantity,

@@ -1,7 +1,7 @@
 <?php 
     include_once './database.php';
     session_start();
-    session_destroy();
+    // session_destroy();
     // Reference: https://medoo.in/api/select
     $items = $database->select("tb_dishes","*"); 
    
