@@ -121,24 +121,25 @@ if (isset($_SERVER["CONTENT_TYPE"])) {
                 $data = json_decode($_COOKIE['dishList'], true);
                 $dish_list = $data;
 
+                $repeatedDish = false;
+
+                // evaluar si ya existe ese platillo registrado, si es asi aumentar solo qty
+                foreach ($dish_list as $index => $item) {
+                    if ($item["id"] == $decoded["id_dish"]) {
+                        $dish_list[$index]["qty"] += $decoded["quantity_dishes"];
+                        $repeatedDish = true;
+                        break;
+                    }
+                }
+                // Si no existe el platillo, registrarlo
+                if (!$repeatedDish) {
+                    $dish_details["id"] = $decoded["id_dish"];
+                    $dish_details["qty"] = $decoded["quantity_dishes"];
+                    $dish_details["price"] = $decoded["dish_price"];
+                    $dish_list[] = $dish_details;
+                }
+                setcookie("dishList", json_encode($dish_list), time() + 72000);
             }
-
-            // $repeatedDish = false;
-            // foreach($dish_list as $index => $item){
-            //     if($item[0]["id_dishes"] == $decoded["id_dish"]){
-            //         $dish_list[$index]["qty"] += $decoded["quantity_dishes"];
-            //         $repeatedDish = true;
-            //         break;
-            //     }
-            // }
-
-            // if($repeatedDish == false){
-            $dish_details["id"] = $decoded["id_dish"];
-            $dish_details["qty"] = $decoded["quantity_dishes"];
-            $dish_details["price"] = $decoded["dish_price"];
-            $dish_list[] = $dish_details;
-            // }
-            setcookie("dishList", json_encode($dish_list), time() + 72000);
         }
     } else {
         $isLogged = "no";

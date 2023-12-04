@@ -201,7 +201,7 @@ if ($_POST) {
 
                             <div class="input-container">
                                 <div>
-                                    <label class="input-text">Dish1 category:</label>
+                                    <label class="input-text">Related dish 1:</label>
                                     <select class="input-box" name="related1" id="dish_category">
                                         <?php
                                         foreach ($items as $item) {
@@ -212,7 +212,7 @@ if ($_POST) {
                                     </select>
 
                                     <div>
-                                        <label class="input-text">Dish2 category:</label>
+                                        <label class="input-text">Related dish 2:</label>
                                         <select class="input-box" name="related2" id="dish_category">
                                             <?php
                                             foreach ($items as $item) {
@@ -223,7 +223,7 @@ if ($_POST) {
                                         </select>
 
                                         <div>
-                                            <label class="input-text">Dish3 category:</label>
+                                            <label class="input-text">Related dish 3:</label>
                                             <select class="input-box" name="related3" id="dish_category">
                                                 <?php
                                                 foreach ($items as $item) {

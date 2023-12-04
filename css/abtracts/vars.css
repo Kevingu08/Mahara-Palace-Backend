@@ -24,6 +24,13 @@
     --clr-gray-text: hsla(0, 0%, 54%, 1);
     --clr-black: hsla(0, 0%, 10%, 1);
     --clr-cream: hsla(35.094, 80%, 74%, 1);
+    /* shadows */
+    --shadow-color: 0deg 0% 68%;
+    --shadow-elevation-medium:
+    0.3px 0.4px 0.6px hsl(var(--shadow-color) / 0.3),
+    1px 1.3px 1.9px -0.8px hsl(var(--shadow-color) / 0.3),
+    2.4px 3.3px 4.6px -1.6px hsl(var(--shadow-color) / 0.3),
+    5.7px 7.9px 11px -2.4px hsl(var(--shadow-color) / 0.3);
 
 }
 
