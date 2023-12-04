@@ -5,6 +5,7 @@ $url_params = "";
 $lang = "";
 $dish_list = [];
 $dish_details = [];
+$relatedProducts = [];
 session_start();
 // session_destroy();
 
@@ -54,10 +55,62 @@ if ($_GET) {
         $url_params = "id=" . $items[0]["id_dishes"] . "&lang=tr";
         $lang = "TR";
     }
+
+    $relatedProduct1 = $database->select("tb_related_products", [
+        "[>]tb_dishes(d1)" => ["id_related_product1" => "id_dishes"],
+    ], [
+        "d1.id_dishes as dishId",
+        "d1.dish_name as dishName",
+        "d1.dish_img as dishImage",
+        "d1.dish_description as dishDescription",
+        "d1.dish_price as dishPrice",
+        "d1.featured_dish as featuredDish",
+    ], [
+        "tb_related_products.id_related_dishes" => $_GET["id"]
+    ]);
+    if ($relatedProduct1) {
+        $relatedProducts = array_merge($relatedProducts, $relatedProduct1);
+
+        $relatedProduct2 = $database->select("tb_related_products", [
+            "[>]tb_dishes(d2)" => ["id_related_product2" => "id_dishes"],
+        ], [
+            "d2.id_dishes as dishId",
+            "d2.dish_name as dishName",
+            "d2.dish_img as dishImage",
+            "d2.dish_description as dishDescription",
+            "d2.dish_price as dishPrice",
+            "d2.featured_dish as featuredDish",
+        ], [
+            "tb_related_products.id_related_dishes" => $_GET["id"]
+        ]);
+
+
+        if ($relatedProduct2) {
+            $relatedProducts = array_merge($relatedProducts, $relatedProduct2);
+
+            $relatedProduct3 = $database->select("tb_related_products", [
+                "[>]tb_dishes(d3)" => ["id_related_product3" => "id_dishes"],
+            ], [
+                "d3.id_dishes as dishId",
+                "d3.dish_name as dishName",
+                "d3.dish_img as dishImage",
+                "d3.dish_description as dishDescription",
+                "d3.dish_price as dishPrice",
+                "d3.featured_dish as featuredDish",
+            ], [
+                "tb_related_products.id_related_dishes" => $_GET["id"]
+            ]);
+
+            if ($relatedProduct3) {
+                $relatedProducts = array_merge($relatedProducts, $relatedProduct3);
+            }
+
+        }
+    }
 }
 
 if (isset($_SERVER["CONTENT_TYPE"])) {
-   
+
     if (isset($_SESSION["isLoggedIn"])) {
         $contentType = $_SERVER["CONTENT_TYPE"];
         if ($contentType == "application/json") {
@@ -67,7 +120,7 @@ if (isset($_SERVER["CONTENT_TYPE"])) {
             if (isset($_COOKIE["dishList"])) {
                 $data = json_decode($_COOKIE['dishList'], true);
                 $dish_list = $data;
-                
+
             }
 
             // $repeatedDish = false;
@@ -80,10 +133,10 @@ if (isset($_SERVER["CONTENT_TYPE"])) {
             // }
 
             // if($repeatedDish == false){
-                $dish_details["id"] = $decoded["id_dish"];
-                $dish_details["qty"] = $decoded["quantity_dishes"];
-                $dish_details["price"] = $decoded["dish_price"];
-                $dish_list[] = $dish_details;
+            $dish_details["id"] = $decoded["id_dish"];
+            $dish_details["qty"] = $decoded["quantity_dishes"];
+            $dish_details["price"] = $decoded["dish_price"];
+            $dish_list[] = $dish_details;
             // }
             setcookie("dishList", json_encode($dish_list), time() + 72000);
         }
@@ -92,6 +145,8 @@ if (isset($_SERVER["CONTENT_TYPE"])) {
         echo json_encode($isLogged);
     }
     exit;
+
+
 }
 ?>
 
@@ -154,50 +209,24 @@ if (isset($_SERVER["CONTENT_TYPE"])) {
             <div class="underscore"></div>
 
             <!-- Cards -->
-            <div class="related-products-container">
-                <div class="related-img-container">
-                    <img class="related-products-img" src="" alt="coca-cola">
-                </div>
-                <div class="related-content-container">
-                    <div class="related-text-container">
-                        <h3 class="related-text-title">malai-kofta</h3>
-                        <p class="related-text">$99.99</p>
-                    </div>
-                    <div class="btn-container-related">
-                        <a class="btn-main" href="#">See more</a>
-                    </div>
-                </div>
-            </div>
+            <?php
+            foreach ($relatedProducts as $relatedProduct) {
+                echo "<div class='related-products-container'>";
+                echo "<div class='related-img-container'>";
+                echo "<img class='related-products-img' src='./imgs/" . $relatedProduct["dish_img"] . "' alt='" . $relatedProduct["dish_name"] . "'>";
+                echo "</div>";
+                echo "<div class='related-content-container'>";
+                echo "<div class='related-text-container'>";
+                echo "<h3 class='related-text-title'>" . $relatedProduct["dish_name"] . "</h3>";
+                echo "<p class='related-text'>$" . $relatedProduct["dish_price"] . "</p>";
+                echo "</div>";
+                echo "<div class='btn-container-related'>";
+                echo "<a class='btn-main' href='description.php?id=" . $relatedProduct["id_dishes"] . "'>See more</a>";                echo "</div>";
+                echo "</div>";
+                echo "</div>";
+            }
+            ?>
 
-            <div class="related-products-container">
-                <div class="related-img-container">
-                    <img class="related-products-img" src="" alt="coca-cola">
-                </div>
-                <div class="related-content-container">
-                    <div class="related-text-container">
-                        <h3 class="related-text-title">malai-kofta</h3>
-                        <p class="related-text">$99.99</p>
-                    </div>
-                    <div class="btn-container-related">
-                        <a class="btn-main" href="#">See more</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="related-products-container">
-                <div class="related-img-container">
-                    <img class="related-products-img" src="" alt="coca-cola">
-                </div>
-                <div class="related-content-container">
-                    <div class="related-text-container">
-                        <h3 class="related-text-title">malai-kofta</h3>
-                        <p class="related-text">$99.99</p>
-                    </div>
-                    <div class="btn-container-related">
-                        <a class="btn-main" href="#">See more</a>
-                    </div>
-                </div>
-            </div>
         </section>
     </main>
     <!-- main -->
@@ -292,7 +321,7 @@ if (isset($_SERVER["CONTENT_TYPE"])) {
             document.getElementById("lang").innerText = requestLang;
         }
 
-        function getTranslate(id){
+        function getTranslate(id) {
 
             let info = {
                 id_dishes: id,

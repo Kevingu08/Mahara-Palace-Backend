@@ -3,12 +3,19 @@ require_once '../database.php';
 
 $categories = $database->select("tb_category_dishes", "*");
 $quantities = $database->select("tb_quantity", "*");
+$items = $database->select("tb_dishes", "*");
+
 
 if ($_GET) {
 
     $dish = $database->select("tb_dishes", "*", [
         "id_dishes" => $_GET["id_dishes"]
     ]);
+
+    $related_products = $database->get("tb_related_products", ["id_related_product1", "id_related_product2", "id_related_product3"], [
+        "id_related_dishes" => $_GET["id_dishes"]
+    ]);
+    var_dump($related_products);
 }
 
 if ($_POST) {
@@ -16,6 +23,7 @@ if ($_POST) {
     $data = $database->select("tb_dishes", "*", [
         "id_dishes" => $_POST["id_edit"]
     ]);
+
 
     if (isset($_FILES['img']) && $_FILES['img']['name'] != "") {
         $errors = [];
@@ -61,6 +69,14 @@ if ($_POST) {
         "dish_price" => $_POST["price"]
     ], [
         "id_dishes" => $_POST["id_edit"]
+    ]);
+
+    $database->update("tb_related_products", [
+        "id_related_product1" => $_POST["related1"],
+        "id_related_product2" => $_POST["related2"],
+        "id_related_product3" => $_POST["related3"]
+    ], [
+        "id_related_dishes" => $_POST["id_edit"]
     ]);
     header("Location: list-dishes.php");
 }
@@ -136,9 +152,10 @@ if ($_POST) {
 
                             <div class="input-container">
                                 <label class="input-text">Dish translate name:</label>
-                                <input class="input-box" name="name_trslt" type="text" placeholder="Enter translated dish name" value="<?php
-                                echo $dish[0]["dish_name_trslt"];
-                                ?>">
+                                <input class="input-box" name="name_trslt" type="text"
+                                    placeholder="Enter translated dish name" value="<?php
+                                    echo $dish[0]["dish_name_trslt"];
+                                    ?>">
                             </div>
 
                             <div class="input-container">
@@ -182,62 +199,98 @@ if ($_POST) {
                                 </div>
                             </div>
 
-                            <div class="input-colunm">
-                                <div class="input-container">
-                                    <label class="input-text">People quantity:</label>
-                                    <select class="input-box" name="quantity" id="dish_category">
+                            <div class="input-container">
+                                <div>
+                                    <label class="input-text">Dish1 category:</label>
+                                    <select class="input-box" name="related1" id="dish_category">
                                         <?php
-                                        foreach ($quantities as $quantity) {
-                                            if ($quantity["id_quantity"] == $dish[0]["id_dish_quantity"]) {
-                                                echo "<option value='" . $quantity["id_quantity"] . "'selected>" . $quantity["people_quantity"] . "</option>";
-                                            } else {
-                                                echo "<option value='" . $quantity["id_quantity"] . "'>" . $quantity["people_quantity"] . "</option>";
-                                            }
+                                        foreach ($items as $item) {
+                                            $selected = ($item["id_dishes"] == $related_products["id_related_product1"]) ? "selected" : "";
+                                            echo "<option value='" . $item["id_dishes"] . "' $selected >" . $item["dish_name"] . "</option>";
                                         }
                                         ?>
                                     </select>
+
+                                    <div>
+                                        <label class="input-text">Dish2 category:</label>
+                                        <select class="input-box" name="related2" id="dish_category">
+                                            <?php
+                                            foreach ($items as $item) {
+                                                $selected = ($item["id_dishes"] == $related_products["id_related_product2"]) ? "selected" : "";
+                                                echo "<option value='" . $item["id_dishes"] . "' $selected >" . $item["dish_name"] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
+
+                                        <div>
+                                            <label class="input-text">Dish3 category:</label>
+                                            <select class="input-box" name="related3" id="dish_category">
+                                                <?php
+                                                foreach ($items as $item) {
+                                                    $selected = ($item["id_dishes"] == $related_products["id_related_product3"]) ? "selected" : "";
+                                                    echo "<option value='" . $item["id_dishes"] . "' $selected >" . $item["dish_name"] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+
+
+                                        <div class="input-colunm">
+                                            <div class="input-container">
+                                                <label class="input-text">People quantity:</label>
+                                                <select class="input-box" name="quantity" id="dish_category">
+                                                    <?php
+                                                    foreach ($quantities as $quantity) {
+                                                        if ($quantity["id_quantity"] == $dish[0]["id_dish_quantity"]) {
+                                                            echo "<option value='" . $quantity["id_quantity"] . "'selected>" . $quantity["people_quantity"] . "</option>";
+                                                        } else {
+                                                            echo "<option value='" . $quantity["id_quantity"] . "'>" . $quantity["people_quantity"] . "</option>";
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="input-container">
+                                                <label class="input-text">Featured:</label>
+                                                <label class="switch">
+                                                    <?php
+                                                    if ($dish[0]["featured_dish"] == "0") {
+                                                        echo
+                                                            "<input id='featured' name='featured' type='checkbox' onclick='checkValue()'>"
+                                                            . "<span class='slider round'></span>"
+                                                            . "</label>"
+                                                            . "<input type='hidden' id='value' value='0' name='value'>";
+                                                    } else {
+                                                        echo
+                                                            "<input id='featured' name='featured' type='checkbox' checked onclick='checkValue()'>"
+                                                            . "<span class='slider round'></span>"
+                                                            . "</label>"
+                                                            . "<input type='hidden' id='value' value='1' name='value'>";
+                                                    }
+                                                    ?>
+                                            </div>
+                                            <div class="input-container">
+                                                <label class="input-text">Dish Image:</label>
+                                                <input type="file" id="file" name="img" onchange="readURL(this)" hidden>
+                                                <label for="file">
+                                                    <img id="preview" class="upload-box" src="../imgs/<?php
+                                                    echo $dish[0]["dish_img"];
+                                                    ?>" alt="preview">
+                                                </label>
+                                            </div>
+                                        </div>
+                                        <div class="div-button">
+                                            <input class="input-button" type="Submit" value="Edit Dish">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="input-container">
-                                    <label class="input-text">Featured:</label>
-                                    <label class="switch">
-                                        <?php
-                                        if ($dish[0]["featured_dish"] == "0") {
-                                            echo
-                                                "<input id='featured' name='featured' type='checkbox' onclick='checkValue()'>"
-                                                . "<span class='slider round'></span>"
-                                                . "</label>"
-                                                . "<input type='hidden' id='value' value='0' name='value'>";
-                                        } else {
-                                            echo
-                                                "<input id='featured' name='featured' type='checkbox' checked onclick='checkValue()'>"
-                                                . "<span class='slider round'></span>"
-                                                . "</label>"
-                                                . "<input type='hidden' id='value' value='1' name='value'>";
-                                        }
-                                        ?>
-                                </div>
-                                <div class="input-container">
-                                    <label class="input-text">Dish Image:</label>
-                                    <input type="file" id="file" name="img" onchange="readURL(this)" hidden>
-                                    <label for="file">
-                                        <img id="preview" class="upload-box" src="../imgs/<?php
-                                        echo $dish[0]["dish_img"];
-                                        ?>" alt="preview">
-                                    </label>
-                                </div>
+                                <input type="hidden" id="id_edit" name="id_edit" value="<?php
+                                echo $dish[0]["id_dishes"];
+                                ?>">
                             </div>
-                            <div class="div-button">
-                                <input class="input-button" type="Submit" value="Edit Dish">
-                            </div>
-                        </div>
-                    </div>
-                    <input type="hidden" id="id_edit" name="id_edit" value="<?php
-                    echo $dish[0]["id_dishes"];
-                    ?>">
+                </form>
+                </section>
             </div>
-            </form>
-            </section>
-        </div>
 
     </main>
     <!-- main -->

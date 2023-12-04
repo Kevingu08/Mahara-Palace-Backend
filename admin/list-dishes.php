@@ -7,6 +7,16 @@ if ($_POST && isset($_POST['dish_id'])) {
     $database->delete("tb_dishes", [
         "id_dishes" => $_POST["dish_id"]
     ]);
+
+    $database->delete("tb_dishes",[
+        "id_dishes"=>$_POST["dish_id"]
+    ]);
+
+    $database->delete("tb_related_products",[
+        "id_related_dishes"=>$_POST["dish_id"]
+    ]);
+
+
     header("location: list-dishes.php");
 }
 

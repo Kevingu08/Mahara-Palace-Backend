@@ -3,8 +3,7 @@ require_once '../database.php';
 
 $categories = $database->select("tb_category_dishes", "*");
 $quantities = $database->select("tb_quantity", "*");
-
-
+$items = $database->select("tb_dishes", "*");
 
 if ($_POST) {
 
@@ -33,7 +32,7 @@ if ($_POST) {
             echo "$img";
             move_uploaded_file($file_tmp, "../imgs/" . $img);
 
-var_dump($_POST);
+            var_dump($_POST);
             $database->insert("tb_dishes", [
                 "id_dish_quantity" => $_POST["quantity"],
                 "id_dish_category" => $_POST["category"],
@@ -45,6 +44,24 @@ var_dump($_POST);
                 "dish_description_trslt" => $_POST["description_trslt"],
                 "dish_price" => $_POST["price"]
             ]);
+
+            $id_dishes = $database->id();
+
+                if(count($items)>0){
+                    $database->insert("tb_related_products",[
+                        "id_related_dishes"=>$id_dishes,
+                        "id_related_product1"=>$_POST["related1"],
+                        "id_related_product2"=>$_POST["related2"],
+                        "id_related_product3"=>$_POST["related3"]
+                    ]);
+                }else{
+                    $database->insert("tb_related_products",[
+                        "id_related_dishes"=>$id_dishes,
+                        "id_related_product1"=>$id_dishes,
+                        "id_related_product2"=>$id_dishes,
+                        "id_related_product3"=>$id_dishes
+                    ]);
+                }
             header("Location: list-dishes.php");
         }
     }
@@ -118,7 +135,8 @@ var_dump($_POST);
 
                             <div class="input-container">
                                 <label class="input-text">Dish translate name:</label>
-                                <input class="input-box" name="name_trslt" type="text" placeholder="Enter translated dish name">
+                                <input class="input-box" name="name_trslt" type="text"
+                                    placeholder="Enter translated dish name">
                             </div>
 
                             <div class="input-container">
@@ -145,50 +163,86 @@ var_dump($_POST);
                                     </select>
                                 </div>
 
+
+
                                 <div class="input-container">
                                     <label class="input-text">Dish price:</label>
                                     <input class="input-box" name="price" type="text" placeholder="Enter dish price">
                                 </div>
                             </div>
 
-                            <div class="input-colunm">
-                                <div class="input-container">
-                                    <label class="input-text">People quantity:</label>
-                                    <select class="input-box" name="quantity" id="dish_category">
+                            <div class="input-container">
+                                <div>
+                                    <label class="input-text">Dish1 category:</label>
+                                    <select class="input-box" name="related1" id="dish_category">
                                         <?php
-                                        foreach ($quantities as $quantity) {
-                                            echo "<option value='" . $quantity["id_quantity"] . "'>" . $quantity["people_quantity"] . "</option>";
+                                        foreach ($items as $item) {
+                                            echo "<option value='" . $item["id_dishes"] . "'>" . $item["dish_name"] . "</option>";
                                         }
                                         ?>
                                     </select>
-                                </div>
-                                <div class="input-container">
-                                    <label class="input-text">Featured:</label>
-                                    <label class="switch">
-                                        <input id="featured" name="featured" type="checkbox" onclick="checkValue()">
-                                        <span class="slider round"></span>
-                                    </label>
-                                    <input type="hidden" id="value" value="0" name="value">
-                                </div>
 
-                                <div class="input-container">
-                                    <label class="input-text">Dish Image:</label>
-                                    <input type="file" id="file" name="img" onchange="readURL(this)" hidden>
-                                    <label for="file">
-                                        <img id="preview" class="upload-box" src="../imgs/upload.svg" alt="preview">
-                                    </label>
+                                    <div>
+                                        <label class="input-text">Dish2 category:</label>
+                                        <select class="input-box" name="related2" id="dish_category">
+                                            <?php
+                                            foreach ($items as $item) {
+                                                echo "<option value='" . $item["id_dishes"] . "'>" . $item["dish_name"] . "</option>";
+                                            }
+                                            ?>
+                                        </select>
 
+                                        <div>
+                                            <label class="input-text">Dish3 category:</label>
+                                            <select class="input-box" name="related3" id="dish_category">
+                                                <?php
+                                                foreach ($items as $item) {
+                                                    echo "<option value='" . $item["id_dishes"] . "'>" . $item["dish_name"] . "</option>";
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+
+                                        <div class="input-colunm">
+                                            <div class="input-container">
+                                                <label class="input-text">People quantity:</label>
+                                                <select class="input-box" name="quantity" id="dish_category">
+                                                    <?php
+                                                    foreach ($quantities as $quantity) {
+                                                        echo "<option value='" . $quantity["id_quantity"] . "'>" . $quantity["people_quantity"] . "</option>";
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                            <div class="input-container">
+                                                <label class="input-text">Featured:</label>
+                                                <label class="switch">
+                                                    <input id="featured" name="featured" type="checkbox"
+                                                        onclick="checkValue()">
+                                                    <span class="slider round"></span>
+                                                </label>
+                                                <input type="hidden" id="value" value="0" name="value">
+                                            </div>
+
+                                            <div class="input-container">
+                                                <label class="input-text">Dish Image:</label>
+                                                <input type="file" id="file" name="img" onchange="readURL(this)" hidden>
+                                                <label for="file">
+                                                    <img id="preview" class="upload-box" src="../imgs/upload.svg"
+                                                        alt="preview">
+                                                </label>
+
+                                            </div>
+                                        </div>
+                                        <div class="div-button">
+                                            <input class="input-button" type="Submit" value="Add new dish">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="div-button">
-                                <input class="input-button" type="Submit" value="Add new dish">
-                            </div>
-                        </div>
-                    </div>
+                </form>
+                </section>
             </div>
-            </form>
-            </section>
-        </div>
 
     </main>
     <!-- main -->
