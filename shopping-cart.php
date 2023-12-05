@@ -10,7 +10,6 @@
     session_start();
     // session_destroy();
    
-
     if(isset($_SESSION["isLoggedIn"])){
         if(isset($_COOKIE['dishList'])){
             $data = json_decode($_COOKIE['dishList'], true);
@@ -27,7 +26,6 @@
                 ],[
                     "id_dishes" => $dish["id"]
                 ]);
-
                 $items[] = $selected_dish;
             }
         }
@@ -35,12 +33,10 @@
         if($_POST) {
             $data = json_decode($_POST["data"], true);
             var_dump($data);
-            
         }
     }   
 
     if(isset($_SERVER["CONTENT_TYPE"])){
-
         if(isset($_SESSION["isLoggedIn"])){
             $content = trim(file_get_contents("php://input"));
             $decoded = json_decode($content, true);
@@ -80,7 +76,6 @@
                     }
                 }
                 $data = $cart_list;
-
             }
             
             //actualizar precio total
@@ -170,7 +165,6 @@
                                 // se llena con JS
                             echo "</div>";
 
-                            
                             echo "<div class='ordering-type-container'>";
                             echo "<h3>Ordering methods</h3>";
                                 echo "<div class='form-item-cart'>";
@@ -191,11 +185,8 @@
                                 echo "<button type='button' id='btn-close-modal' class='btn-main btn-close-modal'>close</button>";
                                 echo "<input id='btn-send-modal' type='submit' class='btn-submit-modal btn-main' oncLick='closeModal()'>";
                             echo "</div>";
-
                         echo "</form>";
-                        
                     echo "</dialog>";
-    
                 }
                 else{
                     echo "<h3>There are no elements</h3>";
@@ -229,7 +220,6 @@
         let btnCloseModal = document.getElementById("btn-close-modal");
         let cardModalContainer = document.getElementById("card-modal-container");
 
-        
         
         btnModal.addEventListener("click", function(){
             let info = {

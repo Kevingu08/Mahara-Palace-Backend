@@ -15,7 +15,6 @@
     padding: 1rem;
     border-radius: 1rem;
     align-items: center;
-    /* border: solid var(--clr-main); */
     background: var(--clr-gray-bg);
 }
 
@@ -29,7 +28,6 @@
 .shopping-tb{
     gap: 1rem;
     border-collapse: collapse;
-    /* t */
     width: 100%;
     margin: 0 auto; 
     overflow-x: auto;
@@ -37,7 +35,6 @@
 }
 
 .shopping-tbody {
-  /* t */
   white-space: nowrap;
 }
 
@@ -46,7 +43,6 @@
     margin-bottom: 6rem;
     width: 10rem;
     border-bottom: solid var(--clr-gray-bg);
-    /* t */
     position: sticky;
     top: 0;
     background: #fff;
@@ -54,13 +50,12 @@
 }
 
 .shopping-td{
-    padding-top: 1rem;
-    border-bottom: solid var(--clr-gray-bg);
+  padding-top: 1rem;
+  border-bottom: solid var(--clr-gray-bg);
 }
 
 .shopping-th,
 .shopping-td{
-  /* t */
   padding: .5rem 1rem;
   padding-right: 1rem;
   border-top-width: 0;
@@ -75,7 +70,6 @@
 tr:last-child td {
   border-bottom-width: 0;
 }
-
 /* responsive table shopping */
 
 .input-shopping-quantity{
@@ -121,13 +115,10 @@ tr:last-child td {
 .modal-cart{
   padding: 2rem;
   width: 30%;
-  /* justify-content: center; */
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   position: absolute;
-  /* width: 80%; */
-
 }
 
 .modal-form{
@@ -185,5 +176,4 @@ tr:last-child td {
     width: 3rem;
     height: 2rem;
   }
-
 }
