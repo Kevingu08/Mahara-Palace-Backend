@@ -2,11 +2,10 @@
     require_once "./database.php";
     session_start();
     if($_POST){
-        var_dump($_POST);
+        // var_dump($_POST);
         $data = json_decode($_POST["data"], true);
 
         if(isset($data[0]["id"])){
-            echo "entra";
             $order_type = intval($_POST["ordering_type"]);
             $total_price = intval($_POST["total"]);
             $date = $_POST["date"];
@@ -38,10 +37,9 @@
             setcookie("dishList", json_encode($dish_list), time() + 72000);
         }
         else{
-            echo "No entra";
             header("location: shopping-cart.php");
         }
-    }
+    }2
 ?>
 
 <!DOCTYPE html>

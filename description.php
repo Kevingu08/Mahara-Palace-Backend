@@ -117,12 +117,12 @@ if (isset($_SERVER["CONTENT_TYPE"])) {
             $content = trim(file_get_contents("php://input"));
             $decoded = json_decode($content, true);
 
+            //agregar platillo si existe una cookie
             if (isset($_COOKIE["dishList"])) {
                 $data = json_decode($_COOKIE['dishList'], true);
                 $dish_list = $data;
 
                 $repeatedDish = false;
-
                 // evaluar si ya existe ese platillo registrado, si es asi aumentar solo qty
                 foreach ($dish_list as $index => $item) {
                     if ($item["id"] == $decoded["id_dish"]) {
@@ -138,6 +138,14 @@ if (isset($_SERVER["CONTENT_TYPE"])) {
                     $dish_details["price"] = $decoded["dish_price"];
                     $dish_list[] = $dish_details;
                 }
+                setcookie("dishList", json_encode($dish_list), time() + 72000);
+            }
+            else{
+                // crear cookie si no existe
+                $dish_details["id"] = $decoded["id_dish"];
+                $dish_details["qty"] = $decoded["quantity_dishes"];
+                $dish_details["price"] = $decoded["dish_price"];
+                $dish_list[] = $dish_details;
                 setcookie("dishList", json_encode($dish_list), time() + 72000);
             }
         }

@@ -23,9 +23,7 @@
                         "[>]tb_users"=>["id_user" => "id_user"]
                     ],[
                         "tb_order.id_order",
-                        // "tb_order.order_date",
                         "tb_order.id_order_type",
-                        // "tb_order.total_price",
                         "tb_order.id_user",
                         "tb_order_details.qty",
                         "tb_order_details.price",
@@ -35,8 +33,6 @@
                         "tb_order.id_user" => $user[0]["id_user"]
                     ]);
                 }
-    
-                // var_dump($orders);
             }
         }
         else{
@@ -66,13 +62,13 @@
                     <p class="user-title"><?php echo $user[0]["fullname"]?></p>
                     <p><?php echo $user[0]["email"]?></p>
                 </div>
-                <button>
+                <a id="btn-logout" href='./logout.php'>
                     <img src="./imgs/exit-svgrepo-com.svg" alt="exit">
-                </button>
+                </a>
             </div>
         </div>
         <section class="user-history">
-            <h2 class="section-title">User history</h2>
+            <h2 class="section-title">History</h2>
             <?php 
                 if(count($orders) > 0){
                     foreach($orders as $order){
