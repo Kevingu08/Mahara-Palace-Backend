@@ -5,66 +5,78 @@ $categories = $database->select("tb_category_dishes", "*");
 $quantities = $database->select("tb_quantity", "*");
 $items = $database->select("tb_dishes", "*");
 
-if ($_POST) {
+session_start();
 
-    if (isset($_FILES['img'])) {
-        $errors = [];
+$user = $database->select("tb_users", "*", [
+    "id_user" => $_SESSION['id']
+]);
 
-        $file_name = $_FILES['img']['name'];
-        $file_size = $_FILES['img']['size'];
-        $file_tmp = $_FILES['img']['tmp_name'];
-        $file_type = $_FILES['img']['type'];
-        $file_ext_arr = explode(".", $_FILES['img']['name']);
 
-        $file_ext = end($file_ext_arr);
-        $img_ext = ["jpg", "jpeg", "png", "webp"];
-        if (!in_array($file_ext, $img_ext)) {
-            $errors[] = "File type is not supported";
-            $message = "File type is not supported";
-        }
+if (isset($_SESSION['isLoggedIn']) && ($user[0]['is_admin'] == 'y')) {
+    if ($_POST) {
 
-        if (empty($errors)) {
-            $filename = strtolower($_POST['name']);
-            $filename = str_replace('.', '', $filename);
-            $filename = str_replace('.', '', $filename);
-            $filename = str_replace(' ', '-', $filename);
-            $img = $filename . "." . $file_ext;
-            echo "$img";
-            move_uploaded_file($file_tmp, "../imgs/" . $img);
+        if (isset($_FILES['img'])) {
+            $errors = [];
 
-            var_dump($_POST);
-            $database->insert("tb_dishes", [
-                "id_dish_quantity" => $_POST["quantity"],
-                "id_dish_category" => $_POST["category"],
-                "dish_name" => $_POST["name"],
-                "dish_name_trslt" => $_POST["name_trslt"],
-                "dish_img" => $img,
-                "featured_dish" => $_POST["value"],
-                "dish_description" => $_POST["description"],
-                "dish_description_trslt" => $_POST["description_trslt"],
-                "dish_price" => $_POST["price"]
-            ]);
+            $file_name = $_FILES['img']['name'];
+            $file_size = $_FILES['img']['size'];
+            $file_tmp = $_FILES['img']['tmp_name'];
+            $file_type = $_FILES['img']['type'];
+            $file_ext_arr = explode(".", $_FILES['img']['name']);
 
-            $id_dishes = $database->id();
+            $file_ext = end($file_ext_arr);
+            $img_ext = ["jpg", "jpeg", "png", "webp"];
+            if (!in_array($file_ext, $img_ext)) {
+                $errors[] = "File type is not supported";
+                $message = "File type is not supported";
+            }
 
-                if(count($items)>0){
-                    $database->insert("tb_related_products",[
-                        "id_related_dishes"=>$id_dishes,
-                        "id_related_product1"=>$_POST["related1"],
-                        "id_related_product2"=>$_POST["related2"],
-                        "id_related_product3"=>$_POST["related3"]
+            if (empty($errors)) {
+                $filename = strtolower($_POST['name']);
+                $filename = str_replace('.', '', $filename);
+                $filename = str_replace('.', '', $filename);
+                $filename = str_replace(' ', '-', $filename);
+                $img = $filename . "." . $file_ext;
+                echo "$img";
+                move_uploaded_file($file_tmp, "../imgs/" . $img);
+
+                var_dump($_POST);
+                $database->insert("tb_dishes", [
+                    "id_dish_quantity" => $_POST["quantity"],
+                    "id_dish_category" => $_POST["category"],
+                    "dish_name" => $_POST["name"],
+                    "dish_name_trslt" => $_POST["name_trslt"],
+                    "dish_img" => $img,
+                    "featured_dish" => $_POST["value"],
+                    "dish_description" => $_POST["description"],
+                    "dish_description_trslt" => $_POST["description_trslt"],
+                    "dish_price" => $_POST["price"]
+                ]);
+
+                $id_dishes = $database->id();
+
+                if (count($items) > 0) {
+                    $database->insert("tb_related_products", [
+                        "id_related_dishes" => $id_dishes,
+                        "id_related_product1" => $_POST["related1"],
+                        "id_related_product2" => $_POST["related2"],
+                        "id_related_product3" => $_POST["related3"]
                     ]);
-                }else{
-                    $database->insert("tb_related_products",[
-                        "id_related_dishes"=>$id_dishes,
-                        "id_related_product1"=>$id_dishes,
-                        "id_related_product2"=>$id_dishes,
-                        "id_related_product3"=>$id_dishes
+                } else {
+                    $database->insert("tb_related_products", [
+                        "id_related_dishes" => $id_dishes,
+                        "id_related_product1" => $id_dishes,
+                        "id_related_product2" => $id_dishes,
+                        "id_related_product3" => $id_dishes
                     ]);
                 }
-            header("Location: list-dishes.php");
+                header("Location: list-dishes.php");
+            }
         }
     }
+
+} else {
+    header("location: ../index.php");
 }
 
 ?>

@@ -3,23 +3,34 @@ require_once '../database.php';
 
 $dishes = $database->select("tb_dishes", "*");
 
-if ($_POST && isset($_POST['dish_id'])) {
-    $database->delete("tb_dishes", [
-        "id_dishes" => $_POST["dish_id"]
+session_start();
+
+    $user = $database->select("tb_users","*",[
+        "id_user"=>$_SESSION['id']
     ]);
 
-    $database->delete("tb_dishes",[
-        "id_dishes"=>$_POST["dish_id"]
-    ]);
+    if (isset($_SESSION['isLoggedIn']) && ($user[0]['is_admin']=='y')) {
 
-    $database->delete("tb_related_products",[
-        "id_related_dishes"=>$_POST["dish_id"]
-    ]);
+        if ($_POST && isset($_POST['dish_id'])) {
+            $database->delete("tb_dishes", [
+                "id_dishes" => $_POST["dish_id"]
+            ]);
+        
+            $database->delete("tb_dishes",[
+                "id_dishes"=>$_POST["dish_id"]
+            ]);
+        
+            $database->delete("tb_related_products",[
+                "id_related_dishes"=>$_POST["dish_id"]
+            ]);
+        
+        
+            header("location: list-dishes.php");
+        }
 
-
-    header("location: list-dishes.php");
-}
-
+    }else{
+        header("location: ../index.php");
+    }
 ?>
 
 <!DOCTYPE html>
