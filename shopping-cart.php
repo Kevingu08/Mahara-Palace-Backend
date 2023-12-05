@@ -392,7 +392,7 @@
                     
 
                     let totalTxt = document.createElement("h3")
-                    totalTxt.innerText = "Total price: $" + totalPriceModal;
+                    totalTxt.innerText = "Total price: $" + totalPriceModal.toFixed(1);
                     newModalContainer.appendChild(totalTxt);
 
                     let inputTotal = document.createElement("input");

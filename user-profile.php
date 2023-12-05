@@ -20,7 +20,8 @@
                     $items = $database->select("tb_order",[
                         "[>]tb_order_details"=>["id_order" => "id_order"],
                         "[>]tb_dishes"=>["tb_order_details.id_dish" => "id_dishes"],
-                        "[>]tb_users"=>["id_user" => "id_user"]
+                        "[>]tb_users"=>["id_user" => "id_user"],
+                        "[>]tb_quantity"=>["tb_dishes.id_dish_quantity" => "id_quantity"]
                     ],[
                         "tb_order.id_order",
                         "tb_order.id_order_type",
@@ -28,7 +29,8 @@
                         "tb_order_details.qty",
                         "tb_order_details.price",
                         "tb_dishes.dish_name",
-                        "tb_dishes.dish_img"
+                        "tb_dishes.dish_img",
+                        "tb_quantity.people_quantity"
                     ],[
                         "tb_order.id_user" => $user[0]["id_user"]
                     ]);
@@ -100,6 +102,10 @@
                                             echo "<div class='histoy-text-container'>";
                                                 echo "<p class='title-history-text'>Price/und</p>";
                                                 echo "<p>$".$item["price"]."</p>";
+                                            echo "</div>";
+                                            echo "<div class='histoy-text-container'>";
+                                                echo "<p class='title-history-text'>People quantity</p>";
+                                                echo "<p>".$item["people_quantity"]."</p>";
                                             echo "</div>";
                                         echo "</div>";
                                     echo "</div>";
