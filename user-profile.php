@@ -98,7 +98,7 @@
                                                 echo "<p>".$item["qty"]."</p>";
                                             echo "</div>";
                                             echo "<div class='histoy-text-container'>";
-                                                echo "<p class='title-history-text'>Price</p>";
+                                                echo "<p class='title-history-text'>Price/und</p>";
                                                 echo "<p>$".$item["price"]."</p>";
                                             echo "</div>";
                                         echo "</div>";

@@ -2,9 +2,6 @@
     padding: 2rem 8rem;
 }
 
-.user-section{
-}
-
 .user-card{
     background: var(--clr-gray-bg);
     /* width: 100%; */
@@ -50,27 +47,54 @@
 }
 
 .history-img{
+    padding-top: 1rem;
+}
+
+.history-img{
     aspect-ratio: 1/1;
     object-fit: contain;
-    max-width: 100px;
+    max-width: 150px;
 }
 
 .history-content{
     display: flex;
     gap: 1rem;
+    border-bottom: solid var(--clr-gray);
 }
 
 .history-text{
     display: flex;
     gap: 1rem;
     padding: 1rem;
+    
 }
 
 .histoy-text-container{
     display: grid;
+    text-align: center;
 }
 
 .title-history-text{
     font-size: var(--fs-md);
     font-weight: var(--fw-semi-bold);
+}
+
+@media(max-width:768px){
+    .user-main{
+        padding: 2rem 2rem;
+    }
+
+    .history-content{
+        flex-direction: column;
+    }
+
+    .history-img-container{
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .history-text{
+        margin-bottom: 1rem;
+    }
 }
