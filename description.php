@@ -196,9 +196,9 @@ if (isset($_SERVER["CONTENT_TYPE"])) {
         echo "<input class='btn-main' type='submit' value='Order Now' onClick='addToCart(" . $items[0]["id_dishes"] . ", " . $items[0]["dish_price"] . ")' >";
         //echo "<input type='hidden' value='".$items[0]["id_dishes"]."' name='id'>";
         //echo "</form>";
-        echo "<div class='translate-container'>";
+        // echo "<div class='translate-container'>";
         echo "<span class='translate-btn' id='lang' onclick='getTranslate(" . $items[0]["id_dishes"] . ")'>Hindu</span>";
-        echo "</div>";
+        // echo "</div>";
         echo "</div>";
         echo "</section>";
         echo "<div class='hero-image-container'>";
