@@ -90,3 +90,8 @@
     margin-top: 2rem;
     margin-left: 2rem;
 }
+
+.input-text {
+    font-family: var(--ff-secondary);
+    font-size: var(--fs-lg);
+}

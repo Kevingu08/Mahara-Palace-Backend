@@ -94,9 +94,17 @@ if (isset($_SESSION['isLoggedIn']) && ($user[0]['is_admin'] == 'y')) {
 <body>
     <!-- header -->
     <header class="hero-container">
+        <?php
+        $path = "../login.php";
+        $iconPath = "../imgs/add-user.svg";
+        if ($_SESSION) {
+            $iconPath = "../imgs/user-icon.svg";
+            $path = "../user-profile.php";
+        }
+        ?>
         <!-- Barra de navegacion -->
         <nav class="top-nav" id="top-navigation">
-            <a href="./index.html"><img class="logo-maharaja" src="../imgs/Maharaja-palace-logo.png"
+            <a href="../index.php"><img class="logo-maharaja" src="../imgs/Maharaja-palace-logo.png"
                     alt="Maharaja palace logo"></a>
 
             <!-- mobile nav -->
@@ -114,7 +122,14 @@ if (isset($_SESSION['isLoggedIn']) && ($user[0]['is_admin'] == 'y')) {
                 <li><a class="nav-list-link" href="#footer">About Us</a></li>
                 <li><a class="nav-list-link" href="#footer">Contact</a></li>
             </ul>
-            <a href="#" class="btn-login">Log In / Sign In</a>
+            <div class="icon-nav-container">
+        <form method="get" action="results.php" class="search-container-form">
+            <input id="search" class="search" type="text" name="keyword">
+            <input type="submit" class="search-btn" value="">
+        </form>
+        <a href="<?php echo $path?>" class=""><img class="icon-nav" src="<?php echo $iconPath?>" alt=""></a>
+        <a href="../shopping-cart.php"><img class="icon-nav" src="../imgs/shopping-cart-svgrepo-com.svg" alt="shopping cart"></a>
+    </div>
         </nav>
         <!-- Barra de navegacion -->
     </header>

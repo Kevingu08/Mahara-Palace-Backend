@@ -7,43 +7,43 @@ $dishes = $database->select("tb_dishes", "*");
 
 session_start();
 
-    $user = $database->select("tb_users","*",[
-        "id_user"=>$_SESSION['id']
-    ]);
+$user = $database->select("tb_users", "*", [
+    "id_user" => $_SESSION['id']
+]);
 
-    if (isset($_SESSION['isLoggedIn']) && ($user[0]['is_admin']=='y')) {
+if (isset($_SESSION['isLoggedIn']) && ($user[0]['is_admin'] == 'y')) {
 
-        if ($_POST && isset($_POST['dish_id'])) {
-            
-            $img_delete = $database->get("tb_dishes", ["id_dishes", "dish_img"], [
-                "id_dishes" => $_POST["dish_id"]
-            ]);
+    if ($_POST && isset($_POST['dish_id'])) {
 
-            $database->delete("tb_dishes", [
-                "id_dishes" => $_POST["dish_id"]
-            ]);
-            
-        
-            $database->delete("tb_related_products",[
-                "id_related_dishes"=>$_POST["dish_id"]
-            ]);
+        $img_delete = $database->get("tb_dishes", ["id_dishes", "dish_img"], [
+            "id_dishes" => $_POST["dish_id"]
+        ]);
 
-            if ($img_delete && isset($img_delete["dish_img"])) {
-                $deleted_img = $img_delete["dish_img"];
-                $img_path = "../imgs/" . $deleted_img;
-        
-                if (file_exists($img_path)) {
-                    unlink($img_path);
-                }
+        $database->delete("tb_dishes", [
+            "id_dishes" => $_POST["dish_id"]
+        ]);
+
+
+        $database->delete("tb_related_products", [
+            "id_related_dishes" => $_POST["dish_id"]
+        ]);
+
+        if ($img_delete && isset($img_delete["dish_img"])) {
+            $deleted_img = $img_delete["dish_img"];
+            $img_path = "../imgs/" . $deleted_img;
+
+            if (file_exists($img_path)) {
+                unlink($img_path);
             }
-        
-        
-            header("location: list-dishes.php");
         }
 
-    }else{
-        header("location: ../index.php");
+
+        header("location: list-dishes.php");
     }
+
+} else {
+    header("location: ../index.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -59,9 +59,17 @@ session_start();
 <body>
     <!-- header -->
     <header class="hero-container">
+        <?php
+        $path = "../login.php";
+        $iconPath = "../imgs/add-user.svg";
+        if ($_SESSION) {
+            $iconPath = "../imgs/user-icon.svg";
+            $path = "../user-profile.php";
+        }
+        ?>
         <!-- Barra de navegacion -->
         <nav class="top-nav" id="top-navigation">
-            <a href="./index.html"><img class="logo-maharaja" src="../imgs/Maharaja-palace-logo.png"
+            <a href="../index.php"><img class="logo-maharaja" src="../imgs/Maharaja-palace-logo.png"
                     alt="Maharaja palace logo"></a>
 
             <!-- mobile nav -->
@@ -79,7 +87,14 @@ session_start();
                 <li><a class="nav-list-link" href="#footer">About Us</a></li>
                 <li><a class="nav-list-link" href="#footer">Contact</a></li>
             </ul>
-            <a href="#" class="btn-login">Log In / Sing In</a>
+            <div class="icon-nav-container">
+        <form method="get" action="results.php" class="search-container-form">
+            <input id="search" class="search" type="text" name="keyword">
+            <input type="submit" class="search-btn" value="">
+        </form>
+        <a href="<?php echo $path?>" class=""><img class="icon-nav" src="<?php echo $iconPath?>" alt=""></a>
+        <a href="../shopping-cart.php"><img class="icon-nav" src="../imgs/shopping-cart-svgrepo-com.svg" alt="shopping cart"></a>
+    </div>
         </nav>
         <!-- Barra de navegacion -->
     </header>
