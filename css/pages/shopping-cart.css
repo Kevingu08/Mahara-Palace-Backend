@@ -176,4 +176,9 @@ tr:last-child td {
     width: 3rem;
     height: 2rem;
   }
+
+  .container-btn-modal{
+    display: inline-grid;
+    justify-content: end;
+  }
 }

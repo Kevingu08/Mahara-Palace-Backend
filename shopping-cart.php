@@ -155,7 +155,11 @@
                     echo "</tfoot>";
                     echo "</table>";
 
-                    echo "<button id='btn-modal' class='btn-main'>confirm</button>";
+                    echo "<div class='container-btn-modal'>";
+                        echo "<button id='btn-modal' class='btn-main'>confirm</button>";
+                    echo "</div>";
+
+                    // echo "<button id='btn-modal' class='btn-main'>confirm</button>";
                     echo "<dialog class='modal-cart' id='modal'>";
                         echo "<h2>Confirm your purchase</h2>";
 
