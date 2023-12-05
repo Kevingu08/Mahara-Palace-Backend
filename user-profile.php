@@ -52,7 +52,10 @@
 </head>
 
 <body>
-    <main class="user-main">
+    <?php 
+        include "./parts/nav.php";
+    ?>
+    <main class="user-main adaptative-menu-nav">
         <div class="user-section">
             <div class="user-card">
                 <div class="user-img-container">
@@ -114,6 +117,7 @@
     <?php 
         include "./parts/footer.php";
     ?>
+    <script src="./js/main.js"></script>
 </body>
 
 </html>

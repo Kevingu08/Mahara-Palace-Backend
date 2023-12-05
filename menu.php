@@ -1,5 +1,6 @@
 <?php 
     require_once './database.php';
+    session_start();
     $id_category = "";
     $is_ajax_available;
 

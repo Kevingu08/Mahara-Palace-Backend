@@ -28,7 +28,13 @@
                 <li><a class="nav-list-link" href="#footer">Contact</a></li>
             </ul>
 
+            
+
             <div class="icon-nav-container">
+                <form method="get" action="results.php" class="search-container-form">
+                    <input id="search" class="search" type="text" name="keyword">
+                    <input type="submit" class="search-btn" value="">
+                </form>
                 <a href="<?php echo $path?>" class=""><img class="icon-nav" src="<?php echo $iconPath?>" alt=""></a>
                 <a href="shopping-cart.php"><img class="icon-nav" src="./imgs/shopping-cart-svgrepo-com.svg" alt="shopping cart"></a>
             </div>

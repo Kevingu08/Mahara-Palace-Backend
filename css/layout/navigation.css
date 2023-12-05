@@ -69,6 +69,26 @@
   background: var(--clr-main);
 }
 
+.search-btn{
+  background: url("../../imgs/search-icon.svg");
+  background-repeat: no-repeat;
+  border: none;
+  border-radius: .75rem;
+  background-position: center;
+  padding: .75rem 1.25rem;
+  cursor: pointer;
+}
+
+.search-container-form{
+  display: flex;
+  align-items: center;
+}
+
+.search{
+  border-radius: 1rem;
+  padding: .2rem;
+}
+
 /* nav */
 
 @media (max-width: 767.98px) {
@@ -169,5 +189,12 @@
 
   .icon-nav-container{
     order: 1;
+    gap: 0;
+  }
+
+  .search{
+    width: 5rem;
+    border-radius: 1rem;
+    padding: .1rem;
   }
 }
