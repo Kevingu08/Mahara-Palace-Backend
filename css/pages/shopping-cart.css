@@ -25,9 +25,20 @@
     max-height: 100px;
 }
 
+/* responsive table shopping */
 .shopping-tb{
     gap: 1rem;
     border-collapse: collapse;
+    /* t */
+    width: 100%;
+    margin: 0 auto; 
+    overflow-x: auto;
+    border-spacing: 0; 
+}
+
+.shopping-tbody {
+  /* t */
+  white-space: nowrap;
 }
 
 .shopping-th{
@@ -35,13 +46,37 @@
     margin-bottom: 6rem;
     width: 10rem;
     border-bottom: solid var(--clr-gray-bg);
-    /* background: var(--clr-main); */
+    /* t */
+    position: sticky;
+    top: 0;
+    background: #fff;
+    vertical-align: bottom;
 }
 
 .shopping-td{
     padding-top: 1rem;
     border-bottom: solid var(--clr-gray-bg);
 }
+
+.shopping-th,
+.shopping-td{
+  /* t */
+  padding: .5rem 1rem;
+  padding-right: 1rem;
+  border-top-width: 0;
+  border-left-width: 0;
+}
+
+.shopping-th:last-child,
+.shopping-td:last-child{
+  border-right-width: 0;
+}
+
+tr:last-child td {
+  border-bottom-width: 0;
+}
+
+/* responsive table shopping */
 
 .input-shopping-quantity{
     width: 3rem;
@@ -51,9 +86,6 @@
 
 .quantity-btn-shopping{
     width: 1.5rem;
-    /* background: none; */
-    /* border: solid .1rem var(--clr-gray); */
-    /* font-size: var(--fs-nm); */
 }
 
 .quantity-btn-shopping:hover{
@@ -69,45 +101,6 @@
   font-size: var(--fs-xmd);
   border-top: solid var(--clr-gray-bg);
 }
-
-/* responsive */
-table {
-  width: 100%;
-  margin: 0 auto; 
-  /* display: block; */
-  overflow-x: auto;
-  border-spacing: 0; 
- }
-
-tbody {
-  white-space: nowrap;
-}
-
-th,
-td {
-  padding: .5rem 1rem;
-  padding-right: 1rem;
-  border-top-width: 0;
-  border-left-width: 0;
-} 
-
-th {
-  position: sticky;
-  top: 0;
-  background: #fff;
-  vertical-align: bottom;
-}
-
-th:last-child,
-td:last-child {
-  border-right-width: 0;
-}
-
-tr:last-child td {
-  border-bottom-width: 0;
-}
-
-/* responsive */
 
 .ordering-type-container{
   display: grid;
@@ -176,4 +169,21 @@ tr:last-child td {
   .modal-cart{
     width: 80%;
   }
+
+  .input-shopping-quantity{
+    width: 4rem;
+    height: 2rem;
+  }
+
+  .quantity-btn-shopping{
+    width: 2rem;
+    height: 2rem;
+    font-size: var(--fs-xmd);
+  }
+
+  .delete-btn-shopping{
+    width: 3rem;
+    height: 2rem;
+  }
+
 }

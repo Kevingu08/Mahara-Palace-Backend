@@ -1,9 +1,6 @@
 <?php 
 // session_start();
 // session_destroy();
-    $current_path = basename(__FILE__);
-    echo   $current_path;
-
     $path = "login.php";
     $iconPath = "./imgs/add-user.svg";
     if($_SESSION){

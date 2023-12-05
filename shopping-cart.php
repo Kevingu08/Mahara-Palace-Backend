@@ -131,7 +131,7 @@
                     echo "<th class='shopping-th'>Total Price</th>";
                     echo "</tr>";
                     echo "</thead>";
-                    echo "<tbody>";
+                    echo "<tbody class='shopping-tbody'>";
                     foreach($items as $iterator =>$item){
                         foreach($item as $index => $dish){
                             echo "<tr>";
@@ -145,7 +145,7 @@
                                     echo "<button class='quantity-btn-shopping' onCLick='increaseQuantity(".$iterator.", ".$dish["id_dishes"].")'>+</button>";
                                 echo "</div>";
                                 echo "</td>";
-                                echo "<td class='shopping-td'><button onClick='deleteItem(this, ".$dish["id_dishes"].")' >Delete</button></td>";
+                                echo "<td class='shopping-td'><button class='delete-btn-shopping' onClick='deleteItem(this, ".$dish["id_dishes"].")' >Delete</button></td>";
                                 echo "<td class='shopping-td' id='total-price-".$iterator."'>$".($dish["dish_price"]*$cart_list[$iterator]["qty"])."</td>";
                             echo "</tr>";
                             $total += ($dish["dish_price"]*$cart_list[$iterator]["qty"]);
