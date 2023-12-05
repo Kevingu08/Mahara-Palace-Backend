@@ -18,7 +18,11 @@
                     $_SESSION["isLoggedIn"] = true;
                     $_SESSION["id"] = $user[0]["id_user"];
                     $_SESSION["fullname"] = $user[0]["fullname"];
-                    header("location: index.php");
+                    if($user[0]['is_admin']=='y'){
+                        header("location: ./admin/list-dishes.php");
+                    }else{
+                        header("location: index.php");
+                    }
                 }
                 else{
                     $loginMessage = "wrong username or password";
