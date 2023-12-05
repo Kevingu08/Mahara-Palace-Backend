@@ -64,10 +64,11 @@
                 <div class="user-content">
                     <p class="user-title"><?php echo $user[0]["fullname"]?></p>
                     <p><?php echo $user[0]["email"]?></p>
-                </div>
-                <a id="btn-logout" href='./logout.php'>
-                    <img src="./imgs/exit-svgrepo-com.svg" alt="exit">
+                    <a id="btn-logout" class="btn-logout" href='./logout.php'>
+                    logout
                 </a>
+                </div>
+                
             </div>
         </div>
         <section class="user-history">

@@ -18,6 +18,10 @@
     padding: 1rem;
 }
 
+.user-img-container{
+    display: flex;
+}
+
 .user-img{
     aspect-ratio: 1/1;
     object-fit: contain;
@@ -27,6 +31,17 @@
 .user-title{
     font-size: var(--fs-xmd);
     font-weight: var(--fw-semi-bold);
+}
+
+.btn-logout{
+    text-decoration: none;
+    cursor: pointer;
+    padding: .5rem;
+    background: var(--clr-main);
+    display: flex;
+    border-radius: 1rem;
+    color: var(--clr-white);
+    justify-content: center;
 }
 
 .user-history{
@@ -82,6 +97,18 @@
 @media(max-width:768px){
     .user-main{
         padding: 2rem 2rem;
+    }
+
+    .user-card{
+        flex-direction: column;
+    }
+
+    .user-img-container{
+        justify-content: center;
+    }
+
+    .user-content{
+        text-align: center;
     }
 
     .history-content{
