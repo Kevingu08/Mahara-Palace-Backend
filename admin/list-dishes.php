@@ -3,6 +3,8 @@ require_once '../database.php';
 
 $dishes = $database->select("tb_dishes", "*");
 
+
+
 session_start();
 
     $user = $database->select("tb_users","*",[
@@ -12,17 +14,28 @@ session_start();
     if (isset($_SESSION['isLoggedIn']) && ($user[0]['is_admin']=='y')) {
 
         if ($_POST && isset($_POST['dish_id'])) {
+            
+            $img_delete = $database->get("tb_dishes", ["id_dishes", "dish_img"], [
+                "id_dishes" => $_POST["dish_id"]
+            ]);
+
             $database->delete("tb_dishes", [
                 "id_dishes" => $_POST["dish_id"]
             ]);
-        
-            $database->delete("tb_dishes",[
-                "id_dishes"=>$_POST["dish_id"]
-            ]);
+            
         
             $database->delete("tb_related_products",[
                 "id_related_dishes"=>$_POST["dish_id"]
             ]);
+
+            if ($img_delete && isset($img_delete["dish_img"])) {
+                $deleted_img = $img_delete["dish_img"];
+                $img_path = "../imgs/" . $deleted_img;
+        
+                if (file_exists($img_path)) {
+                    unlink($img_path);
+                }
+            }
         
         
             header("location: list-dishes.php");
